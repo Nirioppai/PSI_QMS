@@ -10,7 +10,7 @@ use App\QueueDesigner1;
 use App\QueueDesigner2;
 use Auth;
 use DB;
-
+ 
 class QueueDesigner2Controller extends Controller
 {
     /**
@@ -97,7 +97,7 @@ class QueueDesigner2Controller extends Controller
         $QueueDesigner2 = new QueueDesigner2;
 
         QueueDesigner2::where('station_number', $id)->delete();
-        
+
         $windows = $request->input('number_of_windows');
         $priorities = $request->input('number_of_priority_windows');
         $QueueNames = DB::table('queue_designer1s')->where('id', '1')->first();
@@ -331,17 +331,17 @@ class QueueDesigner2Controller extends Controller
             $QueueDesigner2->created_by = $LoggedIN;
             $QueueDesigner2->save();
         }
-        
+
         //Start of Editing in QueueDesigner1 Table
-        $Queue_Designer1->station_name = $request->input('station_name');  
-        $Queue_Designer1->number_of_windows = $windows;  
-        $Queue_Designer1->number_of_kiosks = $request->input('number_of_kiosks');  
+        $Queue_Designer1->station_name = $request->input('station_name');
+        $Queue_Designer1->number_of_windows = $windows;
+        $Queue_Designer1->number_of_kiosks = $request->input('number_of_kiosks');
         $Queue_Designer1->number_of_extra_pwd = $request->input('number_of_priority_windows');
         $Queue_Designer1->station_admin = $request->input('station_admin');
-        $Queue_Designer1->save();  
+        $Queue_Designer1->save();
 
         return redirect('/superadmin/queues/new/modify');
-             
+
 
     }
 

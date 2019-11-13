@@ -5,19 +5,20 @@
 
 @section('main_content')
 <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-      <div class="container px-4">
-        <a  href="/home">
-        <img src="../assets/img/brand/psiWhite.png">
-        </a>
-      </div>
+  <div class="container px-0">
+    <a href="/">
+      <img src="../assets/img/brand/PSI_Resized_White.png">
+    </a>
+  </div>
     </nav>
     <!-- Navbar End -->
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-5">
+    <div class="header bg-gradient-primary  py-7 py-lg-5">
       <div class="container">
         <div class="header-body text-center mb-8">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
+              <br>
               <h1 class="text-white">Registration</h1>
               <p class="text-lead text-light">Welcome! Sign up an account on this Queueing System.</p>
             </div>

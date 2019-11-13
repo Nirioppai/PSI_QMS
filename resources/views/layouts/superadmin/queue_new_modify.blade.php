@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.superadminDashboard')
 
 @section('title')
 <title>PSI Queue | New Queue</title>
@@ -62,7 +62,7 @@
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
         <div class="container">
           <div class="row">
             <div class="col-sm">
-              
+
               <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                   <thead class="thead-light">
@@ -102,7 +102,7 @@
                   @endforeach
                 </table>
               </div>
-              
+
             </div>
           </div>
           <div class="row">

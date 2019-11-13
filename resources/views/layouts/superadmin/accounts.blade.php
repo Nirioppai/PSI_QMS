@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.superadminDashboard')
 
 @section('title')
 <title>PSI Queue | Accounts</title>

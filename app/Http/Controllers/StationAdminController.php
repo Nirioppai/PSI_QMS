@@ -23,7 +23,7 @@ class StationAdminController extends Controller
     */
     public function index()
     {
-      return view('StationAdmin');
+      return view('layouts.stationadmin.home');
     }
 
 }

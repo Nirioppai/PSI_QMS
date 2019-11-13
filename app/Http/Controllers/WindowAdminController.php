@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Queue\Queue;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use App\QueueRecords;
 use App\ArchiveView; // Loui Views
 use App\T0Pools; //
@@ -91,6 +92,16 @@ class WindowAdminController extends Controller
             $queueLastNumber = 0;
         }
 
+        //Get Station Name and Station Number
+        $WindowStationNumber = Auth::guard('window_admin')->user()->window_station_number;
+        $WindowQueueName = Auth::guard('window_admin')->user()->queue_name;
+        $StationName = QueueRecords::where('record_number',$WindowStationNumber)
+        ->where('record_type', 'Station')
+        ->where('queue_name', $WindowQueueName)
+        ->pluck('record_name')
+        ->first();
+
+
 
         if(Auth::guard('window_admin')->user()->window_station_number == 1)
         {
@@ -101,7 +112,9 @@ class WindowAdminController extends Controller
                 ->with('recentCreated', $recentCreated)
                 ->with('queueStations', $queueStations)
                 ->with('stationNumber', $stationNumber)
-                ->with('windowNumber', $windowNumber);
+                ->with('windowNumber', $windowNumber)
+                ->with('WindowStationNumber', $WindowStationNumber)
+                ->with('StationName', $StationName);
 
         }
 
@@ -115,7 +128,9 @@ class WindowAdminController extends Controller
                 ->with('onHold', $onHold)
                 ->with('stationNumber', $stationNumber)
                 ->with('windowNumber', $windowNumber)
-                ->with('queueStations', $queueStations);
+                ->with('queueStations', $queueStations)
+                ->with('WindowStationNumber', $WindowStationNumber)
+                ->with('StationName', $StationName);
 
         }
 

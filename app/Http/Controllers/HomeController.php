@@ -163,6 +163,7 @@ class HomeController extends Controller
         $SuperAdmin->name = $request->input('name');
         $SuperAdmin->username = $request->input('username');
         $SuperAdmin->password = Hash::make($request['password']);
+        $SuperAdmin->created_by = $LoggedIN;
         $SuperAdmin->save();
 
         return view('layouts.superadmin.account_new')->with('Status', $Status);
@@ -174,6 +175,7 @@ class HomeController extends Controller
         $QueueAdmin->name = $request->input('name');
         $QueueAdmin->username = $request->input('username');
         $QueueAdmin->password = Hash::make($request['password']);
+        $QueueAdmin->created_by = $LoggedIN;
         $QueueAdmin->save();
 
         return view('layouts.superadmin.account_new')->with('Status', $Status);
@@ -185,6 +187,7 @@ class HomeController extends Controller
         $StationAdmin->name = $request->input('name');
         $StationAdmin->username = $request->input('username');
         $StationAdmin->password = Hash::make($request['password']);
+        $StationAdmin->created_by = $LoggedIN;
         $StationAdmin->save();
 
         return view('layouts.superadmin.account_new')->with('Status', $Status);
@@ -196,17 +199,18 @@ class HomeController extends Controller
     public function viewQueueAdminAccounts()
     {
       $QueueAdmins = QueueAdmins::all();
-      return view('layouts.superadmin.account_view_queueAdmin');
+      return view('layouts.superadmin.account_view_queueAdmin')->with('QueueAdmins', $QueueAdmins);
     }
 
     public function viewStationAdminAccounts()
     {
-      $QueueAdmins = QueueAdmins::all();
-      return view('layouts.superadmin.account_view_stationAdmin');
+      $StationAdmins = StationAdmins::all();
+      return view('layouts.superadmin.account_view_stationAdmin')->with('StationAdmins', $StationAdmins);
     }
 
     public function archives()
     {
+        $QueueRecord = DB::table('queue_records')->where('record_type', '=', 'Queue')->get();
         $QueueDesigner1 = QueueDesigner1::all();
         //if Super admin is Logged in
         if($user = Auth::user())
@@ -216,11 +220,11 @@ class HomeController extends Controller
             {
                 $QueueDesigner1_Empty=QueueDesigner1::truncate();
                 $QueueDesigner2_Empty=QueueDesigner2::truncate();
-                return view('layouts.superadmin.archives');
+                return view('layouts.superadmin.archives')->with('QueueRecord', $QueueRecord);
             }
             else
             {
-                return view('layouts.superadmin.archives');
+                return view('layouts.superadmin.archives')->with('QueueRecord', $QueueRecord);
             }
         }
     }

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.superadminDashboard')
 
 @section('title')
 <title>PSI Queue | New Queue</title>
@@ -139,8 +139,8 @@
 					<div class="row">
 						<div class="col-sm text-left">
 							{{Form::hidden('_method', 'PUT')}}
-    						<button type="submit" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-right"></i> Submit</button>	
-    					</div>	
+    						<button type="submit" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-right"></i> Submit</button>
+    					</div>
 					</div>
 				</div>
 	        </div>

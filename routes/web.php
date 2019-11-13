@@ -10,7 +10,7 @@ use App\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+ 
 Route::get('/',function(){
   $users = User::all();
   //if there are users

@@ -7,11 +7,10 @@
 
 @section('link')
 
-<a class="nav-link">Station 1 - Get a Queue Number </a>
+<small class="text-white">Station {{$WindowStationNumber}} - {{$StationName}} </small>
 @endsection
 
 @section('main_content')
-
 <!-- Custom Number Modal -->
 <div class="modal fade" id="customNumberModal" tabindex="-1" role="dialog" aria-labelledby="customNumberModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-secondary modal-lg" role="document">

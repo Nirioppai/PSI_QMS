@@ -23,7 +23,7 @@ class QueueAdminController extends Controller
     */
     public function index()
     {
-      return view('QueueAdmin');
+      return view('layouts.queueadmin.home');
     }
 
 }

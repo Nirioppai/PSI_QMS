@@ -5,7 +5,7 @@
 @endsection
 
 @section('link')
-<a class="nav-link">Station {{ $stationNumber }} - Station Name </a>
+<a class="nav-link">Station {{ $stationNumber }} - {{$StationName}} </a>
 @endsection
 
 @section('main_content')
