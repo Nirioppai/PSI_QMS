@@ -36,13 +36,13 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="../assets/img/theme/team-1-800x800.jpg">
+                <img alt="Image placeholder" src="../assets/img/theme/super_admin.png">
               </span>
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
             <div class=" dropdown-header noti-title">
-              <h6 class="text-overflow m-0">Welcome!</h6>
+              <h6 class="text-overflow m-0">Welcome, {{Auth::user()->name}}!</h6>
             </div>
             <a href="../examples/profile.html" class="dropdown-item">
               <i class="ni ni-single-02"></i>
@@ -55,10 +55,6 @@
             <a href="../examples/profile.html" class="dropdown-item">
               <i class="ni ni-calendar-grid-58"></i>
               <span>Activity</span>
-            </a>
-            <a href="../examples/profile.html" class="dropdown-item">
-              <i class="ni ni-support-16"></i>
-              <span>Support</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="{{ route('logout') }}" class="dropdown-item">
@@ -75,7 +71,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="/superadmin/home">
-                <img src="{{ asset('/assets/img/brand/blue.png') }}">
+                <img src="{{ asset('/assets/img/brand/PSI_Resized_Black.png') }}">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -148,7 +144,7 @@
         <div class="collapse navbar-collapse">
            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                 <a class="nav-link" href="/about">About</a>
+                 <a class="nav-link" href="/about"><small>About</small></a>
               </li>
            </ul>
         </div>
@@ -167,7 +163,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome!</h6>
+                <h6 class="text-overflow m-0">Welcome, {{Auth::user()->name}}!</h6>
               </div>
               <a href="../examples/profile.html" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
@@ -180,10 +176,6 @@
               <a href="../examples/profile.html" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Activity</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="{{ route('logout') }}" class="dropdown-item">

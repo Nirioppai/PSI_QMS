@@ -10,7 +10,7 @@ use App\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
- 
+
 Route::get('/',function(){
   $users = User::all();
   //if there are users
@@ -36,6 +36,7 @@ Route::get('/',function(){
     //Super Admin Routes Here
 
     Route::get('/superadmin/home', 'HomeController@index')->name('superadminhome');
+
     Route::get('/superadmin/queues', 'HomeController@queues')->name('superadminqueues');
     Route::get('/superadmin/queues/view', 'HomeController@queueView')->name('superadminqueueView');
     Route::get('/superadmin/queues/new', 'HomeController@newQueue')->name('superadminnewQueue');
@@ -43,6 +44,7 @@ Route::get('/',function(){
     Route::get('/superadmin/queues/new/modify', 'QueueDesigner2Controller@index')->name('superadminnewQueue_modify');
     Route::resource('/superadmin/queues/new/modify', 'QueueDesigner2Controller');
     Route::post('/superadmin/queues/new/modify/save', 'QueuesRecordController@recordQueueDesign')->name('recordQueueDesign');
+
     Route::get('/superadmin/accounts', 'HomeController@accounts')->name('superadminaccounts');
     Route::get('/superadmin/accounts/view/queue_administrators', 'HomeController@viewQueueAdminAccounts')->name('viewQueueAdminAccounts');
     Route::get('/superadmin/accounts/view/station_administrators', 'HomeController@viewStationAdminAccounts')->name('viewStationAdminAccounts');
@@ -54,6 +56,15 @@ Route::get('/',function(){
     //Queue Admin Routes Here
     Route::get('/queueadmin/home', 'QueueAdminController@index')->name('queueadminhome');
 
+    Route::get('/queueadmin/queues', 'QueueAdminController@queues')->name('queueadminqueues');
+    Route::get('/queueadmin/queues/view', 'QueueAdminController@queueView')->name('queueadminqueueView');
+    Route::get('/queueadmin/queues/new', 'QueueAdminController@newQueue')->name('queueadminnewQueue');
+    Route::post('/queueadmin/queue/new/submit_1', 'QueueDesigner_1Controller@newQueue_submit_1')->name('queueadminnewQueue_submit_1');
+    Route::get('/queueadmin/queues/new/modify', 'QueueDesigner_2Controller@index')->name('queueadminnewQueue_modify');
+    Route::resource('/queueadmin/queues/new/modify', 'QueueDesigner_2Controller');
+    Route::post('/queueadmin/queues/new/modify/save', 'QueuesRecord_QueueAdmin_Controller@recordQueueDesign')->name('queueadmin_recordQueueDesign');
+
+    Route::get('/queueadmin/accounts', 'QueueAdminController@accounts')->name('queueadminaccounts');
     //Station Admin Routes Here
     Route::get('/stationadmin/home', 'StationAdminController@index')->name('stationadminhome');
 

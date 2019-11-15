@@ -10,16 +10,16 @@ use App\queueadmins;
 use App\stationadmins;
 use Auth;
 
-class QueueDesigner1Controller extends Controller
+class QueueDesigner_1Controller extends Controller
 {
 
-    public function newQueue_submit_1(Request $request){
+  public function newQueue_submit_1(Request $request){
 	$this->validate($request, [
 	'queue_name' => ['required', 'string', 'max:150', 'unique:queue_designer1s', 'unique:queue_records'],
 	'number_of_stations' => ['required', 'integer', 'max:20'],
 	]);
 
-	$LoggedIN = Auth::user()->name;
+	$LoggedIN = Auth::guard('queue_admin')->user()->name;
 	for ($i = 1; $i < $request->input('number_of_stations')+1; $i++){
 		$QueueDesigner1 = new QueueDesigner1;
 		$QueueDesigner1->queue_name = $request->input('queue_name');
@@ -28,15 +28,15 @@ class QueueDesigner1Controller extends Controller
 		$QueueDesigner1->save();
 	}
 
-	return redirect('/superadmin/queues/new/modify');
+	return redirect('/queueadmin/queues/new/modify');
 
 	}
 	public function back(){
-    
+
 		$QD1s = QueueDesigner1::all();
-		$LoggedIN = Auth::user()->id;
+		$LoggedIN = Auth::guard('queue_admin')->user()->name;
 		$QD1s=QueueDesigner1::where('created_by',$LoggedIN)->delete();
 		$QD1s=QueueDesigner2::where('created_by',$LoggedIN)->delete();
-		return redirect('/superadmin/queues/new');
+		return redirect('/queueadmin/queues/new');
 	}
 }

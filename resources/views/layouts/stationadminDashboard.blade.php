@@ -35,7 +35,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="../assets/img/theme/team-1-800x800.jpg">
+                <img alt="Image placeholder" src="../assets/img/theme/station_admin.png">
               </span>
             </div>
           </a>
@@ -46,18 +46,6 @@
             <a href="../examples/profile.html" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
-            </a>
-            <a href="../examples/profile.html" class="dropdown-item">
-              <i class="ni ni-settings-gear-65"></i>
-              <span>Settings</span>
-            </a>
-            <a href="../examples/profile.html" class="dropdown-item">
-              <i class="ni ni-calendar-grid-58"></i>
-              <span>Activity</span>
-            </a>
-            <a href="../examples/profile.html" class="dropdown-item">
-              <i class="ni ni-support-16"></i>
-              <span>Support</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="{{ route('logout') }}" class="dropdown-item">
@@ -74,7 +62,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="/superadmin/home">
-                <img src="{{ asset('/assets/img/brand/blue.png') }}">
+                <img src="{{ asset('/assets/img/brand/PSI_Resized_Black.png') }}">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -96,12 +84,12 @@
               </li>
            </ul>
            <hr class="my-0">
-           <h6 class="navbar-heading text-muted">Queues</h6>
+           <h6 class="navbar-heading text-muted">Stations</h6>
            <!-- Queues -->
            <ul class="navbar-nav">
               <li class="nav-item">
                  <a class="nav-link text-dark" href="/superadmin/queues">
-                 <i class="fas fa-pen-square text-blue"></i> Queue Management
+                 <i class="fas fa-pen-square text-blue"></i> Station Management
                  </a>
               </li>
            </ul>
@@ -111,7 +99,7 @@
            <ul class="navbar-nav">
               <li class="nav-item">
                  <a class="nav-link text-dark" href="/superadmin/accounts">
-                 <i class="fas fa-user-circle text-blue"></i> Accounts
+                 <i class="fas fa-user-circle text-blue"></i> Window Administrators
                  </a>
               </li>
            </ul>
@@ -122,16 +110,6 @@
               <li class="nav-item">
                  <a class="nav-link text-dark" href="/superadmin/archives">
                  <i class="fas fa-clipboard text-blue"></i> Archive
-                 </a>
-              </li>
-           </ul>
-            <hr class="my-0">
-           <h6 class="navbar-heading text-muted">Flashboard</h6>
-           <!-- Flashboard -->
-           <ul class="navbar-nav">
-              <li class="nav-item">
-                 <a class="nav-link text-dark" href="/superadmin/announcements">
-                 <i class="fas fa-bullhorn text-blue"></i> ADS & Announcements
                  </a>
               </li>
            </ul>
@@ -147,7 +125,7 @@
         <div class="collapse navbar-collapse">
            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                 <a class="nav-link" href="/about">About</a>
+                 <a class="nav-link" href="/about"><small>About</small></a>
               </li>
            </ul>
         </div>
@@ -157,10 +135,10 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="{{ asset('assets/img/theme/super_admin.png') }}">
+                  <img alt="Image placeholder" src="{{ asset('assets/img/theme/station_admin.png') }}">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Super Admin</span>
+                  <span class="mb-0 text-sm  font-weight-bold">Station Admin</span>
                 </div>
               </div>
             </a>
@@ -171,18 +149,6 @@
               <a href="../examples/profile.html" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="{{ route('logout') }}" class="dropdown-item">
