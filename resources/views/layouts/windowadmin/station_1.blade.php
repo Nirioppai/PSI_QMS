@@ -16,7 +16,7 @@
   <div class="modal-dialog modal-secondary modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="customNumberModalLabel">Get a Queue Number.</h4>
+        <h4 class="modal-title" id="customNumberModalLabel">Get a Queue Num ber.</h4>
         <button type="button" class="close " data-dismiss="modal" aria-label="Close">
           <i class="far fa-times-circle"></i>
         </button>
