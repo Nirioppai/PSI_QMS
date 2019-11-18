@@ -94,6 +94,12 @@ class QueueAdminController extends Controller
 
     public function accounts()
     {
+        $LoggedIN = Auth::user()->name;
+        $QueueRecord = DB::table('queue_records')
+        ->where('record_type', '=', 'Queue')
+        ->where('record_admin', '=', $LoggedIN)->get();
+
+
         $QueueDesigner1 = QueueDesigner1::all();
         //if Super admin is Logged in
         if($user = Auth::user())
@@ -103,13 +109,41 @@ class QueueAdminController extends Controller
             {
                 $QueueDesigner1_Empty=QueueDesigner1::truncate();
                 $QueueDesigner2_Empty=QueueDesigner2::truncate();
-                return view('layouts.queueadmin.accounts');
+                return view('layouts.queueadmin.accounts_1')->with('QueueRecord', $QueueRecord);
             }
             else
             {
-                return view('layouts.queueadmin.accounts');
+                return view('layouts.queueadmin.accounts_1')->with('QueueRecord', $QueueRecord);
             }
         }
+    }
+
+    public function pick_queue_from_table($record_name)
+    {
+
+        $LoggedIN = Auth::user()->name;
+        $Station_Admins = DB::table('queue_records')
+        ->where('record_type', '=', 'Station')
+        ->where('record_creator', '=', $LoggedIN)->get();
+
+        $QueueDesigner1 = QueueDesigner1::all();
+        //if Super admin is Logged in
+        if($user = Auth::user())
+        {
+        //if there are unfinished designs
+            if(count ($QueueDesigner1) > 0)
+            {
+                $QueueDesigner1_Empty=QueueDesigner1::truncate();
+                $QueueDesigner2_Empty=QueueDesigner2::truncate();
+                return view('layouts.queueadmin.accounts_2')->with('Station_Admins', $Station_Admins);
+            }
+            else
+            {
+                return view('layouts.queueadmin.accounts_2')->with('Station_Admins', $Station_Admins);
+            }
+        }
+
+
     }
 
 }
