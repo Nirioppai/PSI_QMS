@@ -11,7 +11,7 @@
   <div class="row justify-content-center align-items-center">
     <div class="card bg-secondary shadow-lg border-0">
       <div class="card-header bg-transparent">
-        <h3 class="mb-0">Queue List</h3>
+        <h3 class="mb-0">Station Administrators of Queue: <b>{{$record_name}}</b></h3>
       </div>
       <div class="card-body px-md-5 py-lg-4">
         <div class="container">
@@ -21,8 +21,8 @@
                                  <thead class="thead-light">
                                     <tr>
                                        <th><i class="far fa-sticky-note"></i>&nbsp;Station Admin:</th>
-                                       <th><i class="fas fa-list-ol "></i>&nbsp;Station Admin at:</th>
-                                       <th><i class="fas fa-id-card-alt"></i>&nbsp;Window Admins Monitored:</th>
+                                       <th><i class="fas fa-list-ol "></i>&nbsp;Stationed at:</th>
+                                       <th><i class="fas fa-id-card-alt"></i>&nbsp;Monitoring</th>
                                        <th><i class="fas fa-exclamation"></i>&nbsp;Account Status:	</th>
 
 
@@ -30,9 +30,9 @@
                                  </thead>
                                  @foreach($Station_Admins as $Station_Admin)
                                  <tr>
-                                    <td class="text-left">{{$Station_Admin->record_admin}}</td>
-                                    <td class="text-left">{{$Station_Admin->record_name}}</td>
-                                    <td class="text-left">{{$Station_Admin->record_number_of_windows}}</td>
+                                    <td class="text-left"><a href="/queueadmin/accounts/{{$record_name}}/{{$Station_Admin->record_number}}">{{$Station_Admin->record_admin}}</a></td>
+                                    <td class="text-left">Station <b>{{$Station_Admin->record_number}}</b>, <b>{{$Station_Admin->record_name}}</b></td>
+                                    <td class="text-left"><b>{{$Station_Admin->record_number_of_windows}}</b> Windows</td>
                                     <td class="text-left">
                                         <span class="badge badge-dot">
 
@@ -56,7 +56,7 @@
 
                      @endif
 
-                      @if(!count($Station_Admin))
+                      @if(!count($Station_Admins))
                       <div class="container">
                       <div class="row ">
                         <div class="col text-center"><h1><i class="fas fa-exclamation-triangle"></i> No Station Administrators Available.</h1></div>

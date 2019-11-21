@@ -118,13 +118,13 @@ class QueueAdminController extends Controller
         }
     }
 
+    //picks a queue from a table, returns station admins
     public function pick_queue_from_table($record_name)
     {
-
-        $LoggedIN = Auth::user()->name;
+        $QueueName = $record_name;
         $Station_Admins = DB::table('queue_records')
         ->where('record_type', '=', 'Station')
-        ->where('record_creator', '=', $LoggedIN)->get();
+        ->where('queue_name', '=', $QueueName)->get();
 
         $QueueDesigner1 = QueueDesigner1::all();
         //if Super admin is Logged in
@@ -135,15 +135,48 @@ class QueueAdminController extends Controller
             {
                 $QueueDesigner1_Empty=QueueDesigner1::truncate();
                 $QueueDesigner2_Empty=QueueDesigner2::truncate();
-                return view('layouts.queueadmin.accounts_2')->with('Station_Admins', $Station_Admins);
+                return view('layouts.queueadmin.accounts_2')
+                ->with('Station_Admins', $Station_Admins)
+                ->with('record_name', $record_name);
             }
             else
             {
-                return view('layouts.queueadmin.accounts_2')->with('Station_Admins', $Station_Admins);
+                return view('layouts.queueadmin.accounts_2')
+                ->with('Station_Admins', $Station_Admins)
+                ->with('record_name', $record_name);
             }
         }
+    }
 
+    //picks a station admin from a table, returns window admins
+    public function pick_station_admin_from_table($record_name,$record_number)
+    {
+      $QueueName = $record_name;
+      $Window_Admins = DB::table('queue_records')
+      ->where('record_type', '=', 'Window')
+      ->where('queue_name', '=', $QueueName)
+      ->where('record_station_number', '=', $record_number)->get();
 
+      $QueueDesigner1 = QueueDesigner1::all();
+      //if Super admin is Logged in
+      if($user = Auth::user())
+      {
+      //if there are unfinished designs
+          if(count ($QueueDesigner1) > 0)
+          {
+              $QueueDesigner1_Empty=QueueDesigner1::truncate();
+              $QueueDesigner2_Empty=QueueDesigner2::truncate();
+              return view('layouts.queueadmin.accounts_3')
+              ->with('Window_Admins', $Window_Admins)
+              ->with('record_name', $record_name);
+          }
+          else
+          {
+              return view('layouts.queueadmin.accounts_3')
+              ->with('Window_Admins', $Window_Admins)
+              ->with('record_name', $record_name);
+          }
+      }
     }
 
 }

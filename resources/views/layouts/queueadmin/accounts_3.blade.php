@@ -11,35 +11,32 @@
   <div class="row justify-content-center align-items-center">
     <div class="card bg-secondary shadow-lg border-0">
       <div class="card-header bg-transparent">
-        <h3 class="mb-0">List of Queues you are monitoring.</h3>
+        <h3 class="mb-0">Station Administrators of Queue: <b>{{$record_name}}</b></h3>
       </div>
       <div class="card-body px-md-5 py-lg-4">
         <div class="container">
-          @if(count($QueueRecord))
+          @if(count($Window_Admins))
 
                      <table class="table align-items-center table-flush">
                                  <thead class="thead-light">
                                     <tr>
-                                       <th><i class="far fa-sticky-note"></i>&nbsp;Queue Name</th>
-                                       <th><i class="fas fa-list-ol "></i>&nbsp;Number of Stations</th>
-                                       <th><i class="fas fa-exclamation"></i>&nbsp;Status</th>
+                                       <th><i class="far fa-sticky-note"></i>&nbsp;Station Admin:</th>
+                                       <th><i class="fas fa-exclamation"></i>&nbsp;Account Status:	</th>
 
 
                                     </tr>
                                  </thead>
-                                 @foreach($QueueRecord as $queue_record)
+                                 @foreach($Window_Admins as $Window_Admin)
                                  <tr>
-
-                                    <td class="text-left"><a href="/queueadmin/accounts/{{$queue_record->record_name}}">{{$queue_record->record_name}}</a></td>
-                                    <td class="text-left"><b>{{$queue_record->record_number_of_stations}}</b></td>
+                                    <td class="text-left"><b>{{$Window_Admin->record_admin}}</b></td>
                                     <td class="text-left">
                                         <span class="badge badge-dot">
 
-                                          @if($queue_record->queue_status == 1)
+                                          @if($Window_Admin->queue_status == 1)
                                           <i class="bg-success"></i>
                                           Active
                                           @endif
-                                           @if($queue_record->queue_status == 0)
+                                           @if($Window_Admin->queue_status == 0)
                                            <i class="bg-danger"></i>
                                           Inactive
                                           @endif
@@ -55,10 +52,10 @@
 
                      @endif
 
-                      @if(!count($QueueRecord))
+                      @if(!count($Window_Admins))
                       <div class="container">
                       <div class="row ">
-                        <div class="col text-center"><h1><i class="fas fa-exclamation-triangle"></i> No Queues Available.</h1></div>
+                        <div class="col text-center"><h1><i class="fas fa-exclamation-triangle"></i> No Station Administrators Available.</h1></div>
 
                       </div>
                       </div>

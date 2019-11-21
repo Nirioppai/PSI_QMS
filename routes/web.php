@@ -66,6 +66,7 @@ Route::get('/',function(){
 
     Route::get('/queueadmin/accounts', 'QueueAdminController@accounts')->name('queueadminaccounts');
     Route::get('/queueadmin/accounts/{record_name}', 'QueueAdminController@pick_queue_from_table')->name('queueadminpick_queue_from_table');
+    Route::get('/queueadmin/accounts/{record_name}/{record_number}', 'QueueAdminController@pick_station_admin_from_table')->name('pick_station_admin_from_table');
     //Station Admin Routes Here
     Route::get('/stationadmin/home', 'StationAdminController@index')->name('stationadminhome');
 
