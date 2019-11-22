@@ -75,6 +75,7 @@
           <div class="table-responsive">
             <div>
               <!-- Dito pagination dapat dito -->
+              @if($onDetails)
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
@@ -91,40 +92,45 @@
                       <i class='fas fa-check-circle'></i> ' indicates that a number <b>has a note</b>." data-html="true"><i class="fas fa-info-circle"></i> Note</th>
                     </tr>
                 </thead>
-
+                @foreach($onDetails as $detail)
                 <tr>
-                  <td class="text-left">1</td>
-                  <td class="text-left">Nico</td>
+                  <td class="text-left">{{ $detail->queue_number }}</td>
+                  <td class="text-left">{{ $detail->client_name }}</td>
+                  @if($detail->queue_action == 0)
                   <td class="text-left text-waiting"><b>Waiting</b></td>
+                    @else
+                  <td class="text-left text-danger"><b>Waiting</b></td>
+                  @endif 
+                    @if($detail->queue_priority == 1)
                   <td class="text-left">
                       <span class="badge badge-dot">
                         <i class="bg-waiting"></i>
                       </span>
                       <i class="fas fa-check-circle"></i>
                   </td>
-                  <td class="text-left">
-                  <span class="badge badge-dot">
-                        <i class="bg-danger"></i>
-                  </span>None</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left">2</td>
-                  <td class="text-left">Loui</td>
-                  <td class="text-left text-danger"><b>Waiting</b></td>
+                      @else
                   <td class="text-left">
                       <span class="badge badge-dot">
                         <i class="bg-danger"></i>
                       </span>
                       <i class="fas fa-times-circle"></i>
                   </td>
+                    @endif
+                      @if(!$detail->queue_note)
+                  <td class="text-left">
+                  <span class="badge badge-dot">
+                        <i class="bg-danger"></i>
+                  </span>None</td>
+                        @else
                   <td class="text-left">
                   <span class="badge badge-dot">
                         <i class="bg-waiting"></i>
-                  </span>Nag CR lang daw</td>
-                </tr>
-
-              </table>
+                  </span>{{ $detail->queue_note }}</td>
+                      @endif
+                @endforeach
+                    </tr>
+                  </table>
+              @endif
             </div>
           </div>
           <div class="text-right">

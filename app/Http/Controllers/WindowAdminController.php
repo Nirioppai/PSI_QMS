@@ -79,6 +79,10 @@ class WindowAdminController extends Controller
             ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
             ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
             ->take(4);
+        $onDetails = T03Pool::all()
+            ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+            ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+            ->take(5);
         $onHold = T2Pools::all()
             ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
             ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
@@ -130,7 +134,8 @@ class WindowAdminController extends Controller
                 ->with('windowNumber', $windowNumber)
                 ->with('queueStations', $queueStations)
                 ->with('WindowStationNumber', $WindowStationNumber)
-                ->with('StationName', $StationName);
+                ->with('StationName', $StationName)
+                ->with('onDetails', $onDetails);
 
         }
 

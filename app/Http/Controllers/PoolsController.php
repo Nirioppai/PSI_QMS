@@ -150,6 +150,19 @@ class PoolsController extends Controller
             'note' => ['max: 50']
         ]);
 
+        $checkNumberDuplicate = T1Pools::all()
+            ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+            ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
+            ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number);
+        $exists = DB::table('Pool_Views')
+            ->where('queue_number', $checkNumberDuplicate)
+            ->exists(); 
+
+        if($exists == 1)
+        {
+            $exists->delete();
+        }
+
         if (is_null($request->input('note')))
         {
             switch ($request->input('action'))
@@ -481,7 +494,12 @@ class PoolsController extends Controller
         $pool->queue_station_number = $request->get('queue_stations') + 2;
         $pool->queue_action = 0;
         $pool->user_id =  Auth::guard('window_admin')->user()->id;
-        $pool->queue_note = $request->input('note');
+        if(is_null($request->input('note')))
+        {
+            $pool->queue_note = '';
+        } else {
+            $pool->queue_note = $request->input('note');
+        }
         $pool->save();
         $poolId->delete();
         return redirect('/windowadmin/home');
