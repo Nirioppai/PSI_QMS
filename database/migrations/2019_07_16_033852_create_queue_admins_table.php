@@ -17,8 +17,8 @@ class CreateQueueAdminsTable extends Migration
           $table->bigIncrements('id');
           $table->string('name')->default('Not Set');
           $table->string('username')->unique();
-          $table->string('password');
-          $table->string('created_by')->default('Not Set');//ID of logged in 
+          $table->string('password')->default('Not Set');
+          $table->string('created_by')->default('Not Set');//ID of logged in
           $table->rememberToken();
           $table->timestamps();
 

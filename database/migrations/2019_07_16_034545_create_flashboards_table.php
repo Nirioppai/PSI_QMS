@@ -17,6 +17,11 @@ class CreateFlashboardsTable extends Migration
           $table->bigIncrements('id');
           $table->string('username')->unique();
           $table->string('password');
+          $table->string('queue_name');
+          $table->string('record_station_name');
+          $table->integer('record_station_number');
+          $table->integer('record_number_of_windows');
+          $table->string('record_creator');
           $table->rememberToken();
           $table->timestamps();
 

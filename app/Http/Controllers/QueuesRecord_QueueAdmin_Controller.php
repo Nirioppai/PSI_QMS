@@ -116,6 +116,9 @@ class QueuesRecord_QueueAdmin_Controller extends Controller
         }
       $StationAdmins = StationAdmins::all();
       $Status = "true";
+
+      $QueueDesigner1_Empty=QueueDesigner1::truncate();
+      $QueueDesigner2_Empty=QueueDesigner2::truncate();
     	return view('layouts.queueadmin.queue_new')->with('StationAdmins', $StationAdmins)->with('Status', $Status);
 
     }
