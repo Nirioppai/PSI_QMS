@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\QueueRecords;
 use App\QueueDesigner1;
@@ -34,16 +35,16 @@ class QueuesRecordController extends Controller
     	$Queue_Designer2_all->station_number = QueueDesigner2::Select('station_number')->Where('id', '>', 0)->get();
     	$Queue_Designer2_all->window_number = QueueDesigner2::Select('window_number')->Where('id', '>', 0)->get();
     	$Queue_Designer2_all->created_by = QueueDesigner2::Select('created_by')->Where('id', '>', 0)->get();
-        $Queue_Designer2_all->username = QueueDesigner2::Select('username')->Where('id', '>', 0)->get();
-        $Queue_Designer2_all->password = QueueDesigner2::Select('password')->Where('id', '>', 0)->get();
-        $Queue_Designer2_all->is_priority = QueueDesigner2::Select('is_priority')->Where('id', '>', 0)->get();
+      $Queue_Designer2_all->username = QueueDesigner2::Select('username')->Where('id', '>', 0)->get();
+      $Queue_Designer2_all->password = QueueDesigner2::Select('password')->Where('id', '>', 0)->get();
+      $Queue_Designer2_all->is_priority = QueueDesigner2::Select('is_priority')->Where('id', '>', 0)->get();
 
     	$StationCount = QueueDesigner1::max('number_of_stations');
     	$QueueNames = DB::table('queue_designer1s')->where('id', '>', 0)->first();
-        $QueueName = $QueueNames->queue_name;
-        $SuperAdmin_Logged_in = Auth::user()->name;
+      $QueueName = $QueueNames->queue_name;
+      $SuperAdmin_Logged_in = Auth::user()->name;
 
-        $count = DB::table('queue_records')->distinct('queue_name')->count('queue_name') + 1;
+      $count = DB::table('queue_records')->distinct('queue_name')->count('queue_name') + 1;
 
     	$QueueRecord = new QueueRecords;
 
@@ -79,6 +80,21 @@ class QueuesRecordController extends Controller
 	    	$QueueRecord->save();
     	}
 
+      foreach($Queue_Designer1_all as $Queue_Designer1_Entry){
+
+    		$Flashboard = new Flashboards;
+
+    		$Flashboard->username =  'Flash_'.$QueueName.'S'.$Queue_Designer1_Entry->number_of_stations;
+	    	$Flashboard->password =  Hash::make('Flash_'.$QueueName.'S'.$Queue_Designer1_Entry->number_of_stations.'pw');
+	    	$Flashboard->queue_name =  $QueueName;
+	    	$Flashboard->record_station_name = $Queue_Designer1_Entry->station_name;
+	    	$Flashboard->record_station_number = $Queue_Designer1_Entry->number_of_stations;
+	    	$Flashboard->record_number_of_windows =  $Queue_Designer1_Entry->number_of_windows;
+	    	$Flashboard->record_creator = $SuperAdmin_Logged_in;
+	    	$Flashboard->save();
+
+    	}
+
     	//Recording for Type Window
 
     	foreach($Queue_Designer2_all as $Queue_Designer2_Entry){
@@ -88,15 +104,15 @@ class QueuesRecordController extends Controller
     		$QueueRecord->queue_name =  $QueueName;
     		$QueueRecord->record_type =  'Window';
     		$QueueRecord->record_name =  $QueueName;
-            $QueueRecord->record_station_number =  $Queue_Designer2_Entry->station_number;
+        $QueueRecord->record_station_number =  $Queue_Designer2_Entry->station_number;
     		$QueueRecord->record_number = $Queue_Designer2_Entry->window_number;
     		$QueueRecord->record_number_of_stations = 0;
     		$QueueRecord->record_number_of_windows =  0;
-            $QueueRecord->record_admin =  $Queue_Designer2_Entry->username;
-            $QueueRecord->queue_status =  1;
-            $QueueRecord->record_creator =  $SuperAdmin_Logged_in;
+        $QueueRecord->record_admin =  $Queue_Designer2_Entry->username;
+        $QueueRecord->queue_status =  1;
+        $QueueRecord->record_creator =  $SuperAdmin_Logged_in;
 
-            $QueueRecord->save();
+        $QueueRecord->save();
     	}
 
         foreach($Queue_Designer2_all as $Queue_Designer2_Entry){
@@ -116,6 +132,9 @@ class QueuesRecordController extends Controller
         }
       $StationAdmins = StationAdmins::all();
       $Status = "true";
+
+      $QueueDesigner1_Empty=QueueDesigner1::truncate();
+      $QueueDesigner2_Empty=QueueDesigner2::truncate();
     	return view('layouts.superadmin.queue_new')->with('StationAdmins', $StationAdmins)->with('Status', $Status);
 
     }
