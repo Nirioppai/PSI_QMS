@@ -259,7 +259,7 @@ class HomeController extends Controller
 
         $SNC_QR = QueueRecords::SNC($request->input('aS_QNe'), $request->input('aS_SNr'));
         
-        if ($SNC_QR->record_number != null) {
+        if ($SNC_QR != null) {
             
             $SMN_QR = QueueRecords::SMN($request->input('aS_QNe'));
 
