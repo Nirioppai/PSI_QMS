@@ -8,9 +8,14 @@ use App\QueueAdmins;
 use App\StationAdmins;
 use App\QueueDesigner1;
 use App\QueueDesigner2;
+use App\QueueRecords;
+use App\WindowAdmins;
+use App\Flashboards;
+use App\Pools;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -72,8 +77,9 @@ class HomeController extends Controller
 
     public function queueView()
     {
+        $StationAdmins = DB::table('station_admins')->select('name')->get();
         $QueueRecord = DB::table('queue_records')->where('record_type', '=', 'Queue')->get();
-        return view('layouts.superadmin.queue_view')->with('QueueRecord', $QueueRecord);
+        return view('layouts.superadmin.queue_view')->with('QueueRecord', $QueueRecord)->with('StationAdmins', $StationAdmins);
     }
 
     public function queueList()
@@ -247,6 +253,68 @@ class HomeController extends Controller
                 return view('layouts.superadmin.announcements');
             }
         }
+    }
+
+    public function addStation(Request $request){
+
+        $SNC_QR = QueueRecords::SNC($request->input('aS_QNe'), $request->input('aS_SNr'));
+        
+        if ($SNC_QR != null) {
+            
+            $SMN_QR = QueueRecords::SMN($request->input('aS_QNe'));
+
+            for ($update_SN = $SMN_QR; $update_SN >= $SNC_QR->record_number; $update_SN--) {
+
+                $WMN_QR = QueueRecords::WMN($request->input('aS_QNe'), $update_SN);
+
+                $updateUr_Fd = new Flashboards;
+                $updateUr_Fd->incrementUr($request->input('aS_QNe'), $update_SN);
+
+                $updateSn_QR = new QueueRecords;
+                $updateSn_QR->incrementSn($request->input('aS_QNe'), $update_SN);
+
+                $updateCN_PL = new Pools;
+                $updateCN_PL->incrementCN($request->input('aS_QNe'), $update_SN);
+
+                for ($update_WN = $WMN_QR; $update_WN >= 1; $update_WN--) {
+
+                    $updateWw_QR = new QueueRecords;
+                    $updateWw_QR->incrementWw($request->input('aS_QNe'),  $update_SN, $update_WN);
+
+                    $updateWw_WA = new WindowAdmins;
+                    $updateWw_WA->incrementUr($request->input('aS_QNe'), $update_SN, $update_WN);
+                }
+            }
+        }
+
+
+        $addUr_Fd = new Flashboards;
+        $addUr_Fd->addUr($request->input('aS_QNe'), $request->input('aS_SNe'), $request->input('aS_SNr'), $request->input('aS_NoWs'), $request->input('aS_Cb'));
+
+        $addSn_QR = new QueueRecords;
+        $addSn_QR->addSn($request->input('aS_QNe'), $request->input('aS_SNe'), $request->input('aS_SNr'), $request->input('aS_SAn'), $request->input('aS_NoWs'), $request->input('aS_Cb'));
+
+        for ($add_WN = 1; $add_WN <= $request->input('aS_NoWs'); $add_WN++) { 
+           
+            if ($add_WN <= $request->input('aS_NoPy') + 1) {
+
+                $is_priority =  'Yes';
+            } elseif ($add_WN > $request->input('aS_NoPy') + 1) {
+
+                $is_priority =  'No';
+            }
+
+            $addWw_QR = new QueueRecords;
+            $addWw_QR->addWw($request->input('aS_QNe'), $request->input('aS_SNr'), $add_WN, $request->input('aS_Cb'));
+
+            $addUr_WA = new WindowAdmins;
+            $addUr_WA->addUr($request->input('aS_QNe'), $request->input('aS_SNr'), $add_WN, $is_priority, $request->input('aS_Cb'));
+        }
+
+        $updateQe_QR = new QueueRecords;
+        $updateQe_QR->incrementQe($request->input('aS_QNe'));
+ 
+        return redirect("/superadmin/queues/view");
     }
 
 }
