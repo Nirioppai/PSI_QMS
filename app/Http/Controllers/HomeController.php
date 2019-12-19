@@ -11,6 +11,7 @@ use App\QueueDesigner2;
 use App\QueueRecords;
 use App\WindowAdmins;
 use App\Flashboards;
+use App\Pools;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use DB;
@@ -279,6 +280,9 @@ class HomeController extends Controller
 
                     $updateWw_WA = new WindowAdmins;
                     $updateWw_WA->incrementUr($request->input('aS_QNe'), $update_SN, $update_WN);
+
+                    $updateCN_PL = new Pools;
+                    $updateCN_PL->incrementCN($request->input('aS_QNe'), $update_SN, $update_WN);
                 }
             }
         }
