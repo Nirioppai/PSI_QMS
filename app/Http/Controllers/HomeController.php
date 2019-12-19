@@ -273,6 +273,9 @@ class HomeController extends Controller
                 $updateSn_QR = new QueueRecords;
                 $updateSn_QR->incrementSn($request->input('aS_QNe'), $update_SN);
 
+                $updateCN_PL = new Pools;
+                $updateCN_PL->incrementCN($request->input('aS_QNe'), $update_SN);
+
                 for ($update_WN = $WMN_QR; $update_WN >= 1; $update_WN--) {
 
                     $updateWw_QR = new QueueRecords;
@@ -280,9 +283,6 @@ class HomeController extends Controller
 
                     $updateWw_WA = new WindowAdmins;
                     $updateWw_WA->incrementUr($request->input('aS_QNe'), $update_SN, $update_WN);
-
-                    $updateCN_PL = new Pools;
-                    $updateCN_PL->incrementCN($request->input('aS_QNe'), $update_SN, $update_WN);
                 }
             }
         }
