@@ -53,6 +53,8 @@ Route::get('/',function(){
     Route::get('/superadmin/archives', 'HomeController@archives')->name('superadminarchives');
     Route::get('/superadmin/announcements', 'HomeController@announcements')->name('superadminannouncements');
 
+    Route::post('/edit/addStation', 'HomeController@addStation')->name('SAaddStation.submit');
+
     //Queue Admin Routes Here
     Route::get('/queueadmin/home', 'QueueAdminController@index')->name('queueadminhome');
 
