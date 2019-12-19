@@ -314,7 +314,7 @@ class HomeController extends Controller
         $updateQe_QR = new QueueRecords;
         $updateQe_QR->incrementQe($request->input('aS_QNe'));
  
-        return redirect("http://psiqms_test.com/superadmin/queues/view");
+        return redirect("http://psiqms.com/superadmin/queues/view");
     }
 
 }
