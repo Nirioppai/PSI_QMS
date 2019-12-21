@@ -15,6 +15,9 @@ class CreateHistoryLogsTable extends Migration
     {
         Schema::create('history_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('action')->default('Not Set');
+            $table->string('user')->default('Not Set');
+            $table->string('item_changed')->default('Not Set');
             $table->timestamps();
         });
     }
