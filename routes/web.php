@@ -89,5 +89,13 @@ Route::get('/',function(){
     Route::get('/Queue/getNumber', 'PoolsController@getNumber');
     Route::get('/Queue/getOnHold-{id}','PoolsController@getOnHold');
 
+    //Queue Control Routes Here
+    Route::resource('queue', 'QueueController');
+    Route::post('/Queue/rename-{id}', 'QueueController@renameQueue');
+    Route::post('/Queue/reset-{id}', 'QueueController@resetQueue');
+    Route::post('/Queue/delete-{id}', 'QueueController@deleteQueue');
+    Route::post('/Queue/deactivate-{id}', 'QueueController@deactivateQueue');
+    Route::post('/Queue/activate-{id}', 'QueueController@activateQueue');
+
 
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
