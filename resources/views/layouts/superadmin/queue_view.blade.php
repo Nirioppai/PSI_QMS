@@ -36,6 +36,7 @@
                                       <button type="button" data-html="true" data-toggle="modal" data-target="#reset-Queue-{{$queue_record->id}}" data-placement="right" class=" btn btn-sm btn-warning">Reset</button>
                                       <button type="button" data-html="true" data-toggle="modal" data-target="#rename-Queue-{{$queue_record->id}}" data-placement="right" class=" btn btn-sm btn-warning">Rename</button>
                                       <button type="button" data-html="true" data-toggle="modal" data-target="#delete-Queue-{{$queue_record->id}}" data-placement="right" class=" btn btn-sm btn-warning">Delete</button>
+                                      <button onclick="edit_station(this)" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#edit_station" value="{{$queue_record->queue_name}}">Edit</button>
                                       
                                       <!-- Rename Modal -->
                                       <div class="modal fade" id="rename-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog"
@@ -187,6 +188,72 @@
                               <!-- Changes End Here -->
                      @endif
 
+                    <!-- Start Edit Station Modal -->
+                    <div class="modal fade" id="edit_station" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Edit Station</h4>
+                            <h1 id="queue_name"></h1>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="container">
+                              <div id="accordion">
+                                <div class="card">
+                                  <div class="card-header">
+                                    <!--  -->
+                                    <a class="card-link" data-toggle="collapse" href="#add_station">Add Station</a>
+                                  </div>
+
+                                  <!-- Start Add Station Accordion -->
+                                  <div id="add_station" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                      <form name="add_station" method="post" action="{{ route('SAaddStation.submit' )}}" onsubmit="return ASn_validateForm()">
+                                        <div class="form-group">
+                                          <input type="number" name="aS_SNr" id="aS_SNr" placeholder="Station Number" class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <input type="text" name="aS_SNe" id="aS_SNe" placeholder="Station Name" class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <input type="number" name="aS_NoWs" id="aS_NoWs" placeholder="Number of Windows" class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <input type="number" name="aS_NoPy" id="aS_NoPy" placeholder="Number of Priority Windows" class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                          <select name="aS_SAn" id="aS_SAn" class="form-control">
+                                            <option value="" selected disabled>
+                                              Select Station Admin</option>
+                                            @foreach ($StationAdmins as $station_admin)
+                                              <option value="{{ $station_admin->name }}">
+                                                {{ $station_admin->name }}
+                                              </option>
+                                            @endforeach
+                                          </select>
+                                        </div>
+
+                                        <input type="hidden" name="aS_QNe" id="aS_QNe" value="">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <button type="submit" class="btn btn-primary">Add Station</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                  <!-- End Add Station Accordion -->
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End Edit Station Modal -->
                       @if(!count($QueueRecord))
                       <div class="container">
                       <div class="row ">
@@ -200,4 +267,6 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" src="{{ asset('/assets/js/queue_view.js')}}"></script>
 @endsection

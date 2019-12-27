@@ -257,6 +257,7 @@ class HomeController extends Controller
 
     public function addStation(Request $request){
 
+        $LoggedIN = Auth::user()->name;
         $SNC_QR = QueueRecords::SNC($request->input('aS_QNe'), $request->input('aS_SNr'));
         
         if ($SNC_QR != null) {
@@ -289,10 +290,10 @@ class HomeController extends Controller
 
 
         $addUr_Fd = new Flashboards;
-        $addUr_Fd->addUr($request->input('aS_QNe'), $request->input('aS_SNe'), $request->input('aS_SNr'), $request->input('aS_NoWs'), $request->input('aS_Cb'));
+        $addUr_Fd->addUr($request->input('aS_QNe'), $request->input('aS_SNe'), $request->input('aS_SNr'), $request->input('aS_NoWs'), $LoggedIN);
 
         $addSn_QR = new QueueRecords;
-        $addSn_QR->addSn($request->input('aS_QNe'), $request->input('aS_SNe'), $request->input('aS_SNr'), $request->input('aS_SAn'), $request->input('aS_NoWs'), $request->input('aS_Cb'));
+        $addSn_QR->addSn($request->input('aS_QNe'), $request->input('aS_SNe'), $request->input('aS_SNr'), $request->input('aS_SAn'), $request->input('aS_NoWs'), $LoggedIN);
 
         for ($add_WN = 1; $add_WN <= $request->input('aS_NoWs'); $add_WN++) { 
            
@@ -305,10 +306,10 @@ class HomeController extends Controller
             }
 
             $addWw_QR = new QueueRecords;
-            $addWw_QR->addWw($request->input('aS_QNe'), $request->input('aS_SNr'), $add_WN, $request->input('aS_Cb'));
+            $addWw_QR->addWw($request->input('aS_QNe'), $request->input('aS_SNr'), $add_WN, $LoggedIN);
 
             $addUr_WA = new WindowAdmins;
-            $addUr_WA->addUr($request->input('aS_QNe'), $request->input('aS_SNr'), $add_WN, $is_priority, $request->input('aS_Cb'));
+            $addUr_WA->addUr($request->input('aS_QNe'), $request->input('aS_SNr'), $add_WN, $is_priority, $LoggedIN);
         }
 
         $updateQe_QR = new QueueRecords;
