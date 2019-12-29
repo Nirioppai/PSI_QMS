@@ -87,67 +87,56 @@
           </div>
           @endif
           <!-- Start Edit Station Modal -->
-          <div class="modal fade" id="edit_station" role="dialog">
-            <div class="modal-dialog">
+          <div class="modal fade"id="edit_station" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">Edit Station</h4>
-                  <h1 id="queue_name"></h1>
+                  <h3 class="modal-title" id="reset-QueueLabelLabel">Add Station to {{$queue_record->record_name}}</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
-
+                <form name="add_station" method="post" action="{{ route('SAaddStation.submit' )}}" onsubmit="return ASn_validateForm()">
                 <div class="modal-body">
-                  <div class="container">
-                    <div id="accordion">
-                      <div class="card">
-                        <div class="card-header">
-                          <!--  -->
-                          <a class="card-link" data-toggle="collapse" href="#add_station">Add Station</a>
-                        </div>
 
-                        <!-- Start Add Station Accordion -->
-                        <div id="add_station" class="collapse" data-parent="#accordion">
-                          <div class="card-body">
-                            <form name="add_station" method="post" action="{{ route('SAaddStation.submit' )}}" onsubmit="return ASn_validateForm()">
-                              <div class="form-group">
-                                <input type="number" name="aS_SNr" id="aS_SNr" placeholder="Station Number" class="form-control">
-                              </div>
-
-                              <div class="form-group">
-                                <input type="text" name="aS_SNe" id="aS_SNe" placeholder="Station Name" class="form-control">
-                              </div>
-
-                              <div class="form-group">
-                                <input type="number" name="aS_NoWs" id="aS_NoWs" placeholder="Number of Windows" class="form-control">
-                              </div>
-
-                              <div class="form-group">
-                                <input type="number" name="aS_NoPy" id="aS_NoPy" placeholder="Number of Priority Windows" class="form-control">
-                              </div>
-
-                              <div class="form-group">
-                                <select name="aS_SAn" id="aS_SAn" class="form-control">
-                                  <option value="" selected disabled>
-                                    Select Station Admin</option>
-                                  @foreach ($StationAdmins as $station_admin)
-                                    <option value="{{ $station_admin->name }}">
-                                      {{ $station_admin->name }}
-                                    </option>
-                                  @endforeach
-                                </select>
-                              </div>
-
-                              <input type="hidden" name="aS_QNe" id="aS_QNe" value="">
-                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              <button type="submit" class="btn btn-primary">Add Station</button>
-                            </form>
-                          </div>
-                        </div>
-                        <!-- End Add Station Accordion -->
-
-                      </div>
+                    <div class="form-group">
+                      <input type="number" name="aS_SNr" id="aS_SNr" placeholder="Station Number" class="form-control">
                     </div>
-                  </div>
+
+                    <div class="form-group">
+                      <input type="text" name="aS_SNe" id="aS_SNe" placeholder="Station Name" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                      <input type="number" name="aS_NoWs" id="aS_NoWs" placeholder="Number of Windows" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                      <input type="number" name="aS_NoPy" id="aS_NoPy" placeholder="Number of Priority Windows" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                      <select name="aS_SAn" id="aS_SAn" class="form-control">
+                        <option value="" selected disabled>
+                          Select Station Admin</option>
+                        @foreach ($StationAdmins as $station_admin)
+                          <option value="{{ $station_admin->name }}">
+                            {{ $station_admin->name }}
+                          </option>
+                        @endforeach
+                      </select>
+                    </div>
+
+                    <input type="hidden" name="aS_QNe" id="aS_QNe" value="">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button type="submit" class="btn btn-primary">Add Station</button>
+                </div>
+                </form>
               </div>
             </div>
           </div>
