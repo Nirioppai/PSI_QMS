@@ -17,7 +17,7 @@ use Auth;
 class QueueController extends Controller
 {
     public function renameQueue(Request $request, $id)
-    {	
+    {
 
     	$this->validate($request, ['newQueueName' => 'required']);
     	$queueName = QueueRecords::all()
@@ -35,8 +35,8 @@ class QueueController extends Controller
     	// $history = new HistoryLog;
 
 
-    	// Queue Records 
-    
+    	// Queue Records
+
     	$queueRecords = QueueRecords::all()
     				->where('queue_name', '=', $queueName);
     	$windowRecords = $queueRecords
@@ -47,13 +47,13 @@ class QueueController extends Controller
     		$queueRecord->queue_name = $newQueueName;
 			$queueRecord->save();
     	}
-			
+
 		foreach($windowRecords as $windowRecord)
 		{
 			$windowRecord->record_name = $newQueueName;
 			$windowRecord->save();
 		}
-	
+
 
 		// Window Admins
 
@@ -62,13 +62,13 @@ class QueueController extends Controller
 
 		foreach($queueWindows as $queueWindow)
 		{
-			
+
 			$queueWindow->queue_name = $newQueueName;
 			$queueWindow->username = $newQueueName.'S'.$queueWindow->window_station_number.'W'.$queueWindow->window_number;
 			$queueWindow->password = Hash::make($newQueueName.'S'.$queueWindow->window_station_number.'W'.$queueWindow->window_number.'pw');
 			$queueWindow->save();
 		}
-		
+
 
 		return redirect('/superadmin/queues/view');
 
@@ -95,6 +95,9 @@ class QueueController extends Controller
 
     	$windowRecords = Windowadmins::where('queue_name', '=', $queueName);
     	$windowRecords->delete();
+
+      $flashboardRecords = Flashboards::where('queue_name', '=', $queueName);
+    	$flashboardRecords->delete();
 
 
 		return redirect('/superadmin/queues/view');
@@ -144,7 +147,7 @@ class QueueController extends Controller
         					->get();
 
 
-        foreach ($archives as $archive) 
+        foreach ($archives as $archive)
         {
             $log = new QueueLogs;
             $log->user_id = $archive->user_id;
@@ -158,7 +161,7 @@ class QueueController extends Controller
             $log->queue_note =$archive->queue_note;
             $log->created_at = $archive->created_at;
             $log->save();
-            
+
             if($archive)
             {
             	$archive->delete();
@@ -185,7 +188,7 @@ class QueueController extends Controller
 
     	$queueRecords = QueueRecords::all()
     			 ->where('queue_name', '=', $queueName);
-    	
+
     	foreach($queueRecords as $queueRecord)
     	{
     		$queueRecord->queue_status = 0;
@@ -222,7 +225,7 @@ class QueueController extends Controller
 
     	$queueRecords = QueueRecords::all()
     			 ->where('queue_name', '=', $queueName);
-    	
+
     	foreach($queueRecords as $queueRecord)
     	{
     		$queueRecord->queue_status = 1;
