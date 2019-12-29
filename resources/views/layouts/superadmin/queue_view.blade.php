@@ -97,6 +97,7 @@
                   </button>
                 </div>
                 <form name="add_station" method="post" action="{{ route('SAaddStation.submit' )}}" onsubmit="return ASn_validateForm()">
+                @csrf
                 <div class="modal-body">
 
                     <div class="form-group">
@@ -154,6 +155,7 @@
                 </div>
                 <div class="modal-body">
                 {!! Form::open(['url' => '/Queue/activate-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                @csrf
                   Are you sure you want to activate {{$queue_record->record_name}}?
                 </div>
                 <div class="modal-footer">
@@ -178,6 +180,7 @@
                 </div>
                 <div class="modal-body">
                 {!! Form::open(['url' => '/Queue/deactivate-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                @csrf
                   Are you sure you want to deactivate {{$queue_record->record_name}}?
                 </div>
                 <div class="modal-footer">
@@ -202,6 +205,7 @@
                   </div>
                   <div class="modal-body">
                     {!! Form::open(['url' => '/Queue/rename-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                    @csrf
                     <div class="input-group input-group-alternative">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
@@ -232,6 +236,7 @@
                   </div>
                   <div class="modal-body">
                     {!! Form::open(['url' => '/Queue/delete-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                    @csrf
                     Are you sure you want to delete {{$queue_record->record_name}}?
                   </div>
                   <div class="modal-footer">
@@ -256,6 +261,7 @@
                   </div>
                   <div class="modal-body">
                     {!! Form::open(['url' => '/Queue/reset-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                    @csrf
                     Are you sure you want to reset {{$queue_record->record_name}}?
                   </div>
                   <div class="modal-footer">
