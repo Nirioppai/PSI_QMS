@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
   <link href="{{ asset('/assets/vendor/nucleo/css/nucleo.css') }}" rel="stylesheet">
-  <link href="{{ asset('/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/76c4804a71.js"></script>
   <!-- Argon CSS -->
   <link type="text/css" href="{{ asset('/assets/css/flip.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ asset('/assets/css/argon.css?v=1.0.0') }}" rel="stylesheet">
