@@ -4,23 +4,12 @@
 @endsection
 
 @section('main_content')
-<nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-  <div class="container px-0">
-    <a href="/">
-      <img src="../assets/img/brand/PSI_Resized_White.png">
-    </a>
-  </div>
-    </nav>
-    <!-- Navbar End -->
     <!-- Header -->
-    <div class="header bg-gradient-primary  py-7 py-lg-5">
+    <div class="header bg-gradient-yellow  py-7 py-lg-5">
       <div class="container">
         <div class="header-body text-center mb-8">
           <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <br>
-              <h1 class="text-white">Registration</h1>
-              <p class="text-lead text-light">Welcome! Sign up an account on this Queueing System.</p>
+            <div class="col-lg-5 col-md-6 mt-5">
             </div>
           </div>
         </div>
@@ -34,50 +23,60 @@
     <!-- Page content -->
     <div class="container mt--9    pb-5">
       <!-- Table -->
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-8">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-body px-lg-5 py-lg-5">
-              {!! Form::open(['url' => '/Welcome/Submit']) !!}
-                @csrf
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
-                    </div>
-                    <input id="Name" name="Name"  class="form-control{{ $errors->has('Name') ? ' is-invalid' : '' }}" value="{{ old('Name') }}" required autofocus placeholder="Name" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-id-card-alt"></i></span>
-                    </div>
-                    <input  id="Username" name="Username" class="form-control{{ $errors->has('Username') ? ' is-invalid' : '' }}" value="{{ old('Username') }}" required placeholder="Username" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input id="Password" name="Password" class="form-control{{ $errors->has('Password') ? ' is-invalid' : '' }}" required placeholder="Password" type="password">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    </div>
-                    <input id="Password_Confirm" name="Password_Confirm" class="form-control{{ $errors->has('Password_Confirm') ? ' is-invalid' : '' }}" required placeholder="Password Confirmation {{ $errors->has('Password_Confirm') ? 'does not match.' : '' }}" type="password">
-                  </div>
-                </div>
-                <div class="text-center">
-                  {{Form::submit('Create Account', ['class' => 'btn btn-primary'])}}
-                </div>
-              {!! Form::close() !!}
+      <div class="row justify-content-center mb--4">
+
+        <div class="col-lg-4 col-md-7 ">
+        
+          {!! Form::open(['url' => '/Welcome/Submit', 'class' => 'bg-white text-center border border-light p-5 ', 'method' => 'POST']) !!}
+            @csrf
+            <img src="{{asset('../assets/img/brand/xsLogo.png')}}" class=" text-left mt--4" alt="...">
+            <p class="h2 mt-2 text-left">Create account</p>
+
+            <div class="md-form mt--1">
+                <input id="Name" name="Name"  class="form-control{{ $errors->has('Name') ? ' is-invalid' : '' }}" value="{{ old('Name') }}" required autofocus placeholder="Name" type="text">
+
+                                @if ($errors->has('Name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('Name') }}</strong>
+                                    </span>
+                                @endif
+                <label for="materialLoginFormName"><i class="ni ni-circle-08"></i> <small>Name</small></label>
             </div>
-          </div>
+
+            <div class="md-form mt--1">
+                <input  id="Username" name="Username" class="form-control{{ $errors->has('Username') ? ' is-invalid' : '' }}" value="{{ old('Username') }}" required placeholder="Username" type="text">
+
+                @if ($errors->has('Username'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('Username') }}</strong>
+                    </span>
+                @endif
+                <label for="materialLoginFormUsername"><i class="fas fa-id-card-alt"></i> <small>Username</small></label>
+            </div>
+
+            <div class="md-form mt--1">
+
+                <input id="Password" name="Password" class="form-control{{ $errors->has('Password') ? ' is-invalid' : '' }}" required placeholder="Password" type="password">
+
+                @if ($errors->has('Password'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('Password') }}</strong>
+                    </span>
+                @endif
+                <label for="materialLoginFormPassword"><i class="ni ni-lock-circle-open"></i> <small>Password</small></label>
+            </div>
+
+            <div class="md-form mt--1">
+                 <input id="Password-confirm" type="password" class="form-control" name="Password_confirmation" required>
+                <label for="materialLoginFormConfirmPassword"><i class="fas fa-lock"></i> <small>Confirm Password</small></label>
+            </div>
+
+            <div class="text-center">
+            <button type="submit" class="btn btn-sm btn-outline-primary btn-block mb--3">
+                {{ __('Register') }}
+            </button>
+            </div>
+          {!! Form::close() !!}
         </div>
       </div>
     </div>

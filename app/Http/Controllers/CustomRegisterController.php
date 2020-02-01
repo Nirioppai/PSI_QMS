@@ -33,8 +33,7 @@ class CustomRegisterController extends Controller
       $this->validate($request, [
           'Name' => ['required', 'string', 'max:50'],
           'Username' => ['required', 'string', 'max:25', 'unique:users','unique:queue_admins','unique:station_admins','unique:window_admins'],
-          'Password' => ['required', 'string', 'max:25', 'min:8'],
-          'Password_Confirm' => ['same:Password'],
+          'Password' => ['required', 'string', 'max:25', 'min:8', 'confirmed'],
       ]);
 
       //Registers the User
