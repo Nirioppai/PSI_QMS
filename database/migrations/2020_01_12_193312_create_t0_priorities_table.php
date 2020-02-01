@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateT2PoolsTable extends Migration
+class CreateT0PrioritiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateT2PoolsTable extends Migration
      */
     public function up()
     {
-        DB::statement("CREATE VIEW t2_pools AS 
+         DB::statement("CREATE VIEW t0_priorities AS 
                         SELECT 
                                 id,
                                 user_id,
@@ -29,9 +29,9 @@ class CreateT2PoolsTable extends Migration
                         FROM
                              pools
                         WHERE 
-                             queue_action = '2'
+                            queue_action = '0'
                         AND 
-                            queue_priority = '0'
+                            queue_priority = '1'
                         ");
     }
 
@@ -42,6 +42,6 @@ class CreateT2PoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t2_pools');
+        Schema::dropIfExists('t0_priorities');
     }
 }

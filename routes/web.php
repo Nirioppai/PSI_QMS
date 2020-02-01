@@ -81,7 +81,7 @@ Route::get('/',function(){
     //Kiosk Routes Here
     Route::get('/kiosk/home', 'KioskController@index')->name('kioskhome');
 
-    //Pool Routes Here
+    //Pool Routes Here aka Window Controls
     Route::resource('pools', 'PoolsController');
     Route::post('/Queue/custom', 'PoolsController@custom');
     Route::post('/Queue/noteCheck', 'PoolsController@noteCheck');
