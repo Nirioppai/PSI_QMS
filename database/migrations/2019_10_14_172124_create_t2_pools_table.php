@@ -30,6 +30,8 @@ class CreateT2PoolsTable extends Migration
                              pools
                         WHERE 
                              queue_action = '2'
+                        AND 
+                            queue_priority = '0'
                         ");
     }
 
