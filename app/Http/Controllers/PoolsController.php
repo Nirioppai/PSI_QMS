@@ -744,10 +744,6 @@ class PoolsController extends Controller
         $pool->queue_station_number = $request->get('queue_stations') + 2;
         $pool->queue_action = 0;
         $pool->user_id =  Auth::guard('window_admin')->user()->id;
-<<<<<<< Updated upstream
-=======
-        $pool->queue_note = $request->input('note');
->>>>>>> Stashed changes
         if(is_null($request->input('note')))
         {
             $pool->queue_note = '';
