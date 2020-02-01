@@ -169,25 +169,8 @@ class WindowAdminController extends Controller
                 ->pluck('queue_number')
                 ->last();
         $onWindowName =  $onWindow
-<<<<<<< Updated upstream
-            ->pluck('client_name')
-            ->last();
-        $onPool = T03Pool::all()
-            ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
-            ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
-            ->take(4);
-        $onDetails = T03Pool::all()
-            ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
-            ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
-            ->take(5);
-        $onHold = T2Pools::all()
-            ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
-            ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
-            ->take(3);
-=======
                 ->pluck('client_name')
                 ->last();
->>>>>>> Stashed changes
         $stationNumber =  Auth::guard('window_admin')->user()->window_station_number;
 
         // Default OnView Data Station 1
