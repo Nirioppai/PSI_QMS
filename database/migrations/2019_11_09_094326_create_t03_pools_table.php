@@ -29,9 +29,12 @@ class CreateT03PoolsTable extends Migration
                         FROM
                              pools
                         WHERE 
-                             queue_action = '0'
+                        (     queue_action = '0'
                         OR
-                            queue_action = '3'
+                            queue_action = '3' )
+                        AND 
+                            queue_priority = '0'
+
                         ");
     }
 
