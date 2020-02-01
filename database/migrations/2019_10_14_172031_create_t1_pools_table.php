@@ -28,7 +28,10 @@ class CreateT1PoolsTable extends Migration
                                 created_at
                         FROM
                              pools
-                        WHERE queue_action = '1'
+                        WHERE 
+                             queue_action = '1'
+                        AND 
+                            queue_priority = '0'
                         ");
     }
 
