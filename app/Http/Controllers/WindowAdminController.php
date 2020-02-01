@@ -8,11 +8,15 @@ use Auth;
 use DB;
 use App\QueueRecords;
 use App\ArchiveView; // Loui Views
+use App\PoolView; //
 use App\T0Pools; //
 use App\T1Pools; //
 use App\T2Pools; //
 use App\T03Pool; //
-
+use App\T0Priority; //
+use App\T1Priority; //
+use App\T2Priority; //
+use App\T03Priority; //
 
 
 class WindowAdminController extends Controller
@@ -61,18 +65,111 @@ class WindowAdminController extends Controller
             ->unique();
         $windowNumber =  Auth::guard('window_admin')->user()->window_number;
 
-
-        // OnView Data Stations
-        $onWindow = T1Pools::all()
+        // Priority Counters 
+        $counters  = PoolView::all()
             ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
-            ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
-            ->where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number);
-        $onWindowCount = $onWindow
+            ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number);
+        $PriorityCount = $counters
+            ->where('queue_priority', '=', '1')
             ->count();
+        $NonPriorityCount = $counters
+            ->where('queue_priority', '=', '0')
+            ->count();
+        $OnWindowCheck = $counters
+            ->where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number)
+            ->where('queue_action', '=', '1')
+            ->pluck('queue_priority')
+            ->first();
+        $priorityCheck = Auth::guard('window_admin')->user()->is_priority_window;    
+        
+        // OnView Data Stations
+        if($priorityCheck == 'Yes' || $NonPriorityCount == 0 )
+        {   
+            if($OnWindowCheck == 0)
+            {
+                $onWindow = T1Pools::all()
+                    ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                    ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                    ->where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number);
+                if($PriorityCount == 0) 
+                {     
+                    $onPool = T03Pool::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(4);
+                    $onHold = T2Pools::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(3);
+                }
+                else
+                {
+                    $onPool = T03Priority::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(4);
+                    $onHold = T2Priority::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(3);
+                }
+                
+            }
+            else
+            {
+                $onWindow = T1Priority::all()
+                    ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                    ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                    ->where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number);
+                if($NonPriorityCount == 0) 
+                {     
+                    $onPool = T03Priority::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(4);
+                    $onHold = T2Priority::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(3);
+                }
+                else
+                {
+                    $onPool = T03Pool::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(4);
+                    $onHold = T2Pools::all()
+                        ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                        ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                        ->take(3);
+                }
+            }
+
+        }
+
+        if($priorityCheck == 'No' || $PriorityCount == 0)
+        {
+            $onWindow = T1Pools::all()
+                ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                ->where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number);
+            $onPool = T03Pool::all()
+                ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                ->take(4);
+            $onHold = T2Pools::all()
+                ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
+                ->take(3);
+        }
+
+        $onWindowCount = $onWindow
+                ->count();
         $onWindowNumber =  $onWindow
-            ->pluck('queue_number')
-            ->last();
+                ->pluck('queue_number')
+                ->last();
         $onWindowName =  $onWindow
+<<<<<<< Updated upstream
             ->pluck('client_name')
             ->last();
         $onPool = T03Pool::all()
@@ -87,8 +184,11 @@ class WindowAdminController extends Controller
             ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
             ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
             ->take(3);
+=======
+                ->pluck('client_name')
+                ->last();
+>>>>>>> Stashed changes
         $stationNumber =  Auth::guard('window_admin')->user()->window_station_number;
-
 
         // Default OnView Data Station 1
         if($queueLastNumber == null)
@@ -104,8 +204,6 @@ class WindowAdminController extends Controller
         ->where('queue_name', $WindowQueueName)
         ->pluck('record_name')
         ->first();
-
-
 
         if(Auth::guard('window_admin')->user()->window_station_number == 1)
         {
