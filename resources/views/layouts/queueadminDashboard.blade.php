@@ -15,6 +15,7 @@
   <!-- Argon CSS -->
   <link type="text/css" href="{{ asset('/assets/css/flip.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ asset('/assets/css/argon.css?v=1.0.0') }}" rel="stylesheet">
+  <link type="text/css" href="{{ asset('/assets/css/card.css?v=1.0.0') }}" rel="stylesheet">
 </head>
 
 <body>

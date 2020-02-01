@@ -5,7 +5,7 @@
 @endsection
 
 @section('link')
-<a class="nav-link">Station {{ $stationNumber }} - {{$StationName}} </a>
+<a class="nav-link text-dark">Station {{ $stationNumber }} - {{$StationName}} </a>
 @endsection
 
 @section('main_content')
@@ -142,9 +142,9 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 mt-3">
-      <div class="card_Gray text-center">
-        <div class="card-header-gray text-dark">
+    <div class="col-sm-6 mt-6">
+      <div class="card text-center">
+        <div class="card-header-gray text-dark mt-4">
          <b>Queue Handling</b>
         </div>
             <div class="card-body">
@@ -360,10 +360,10 @@
                 </div>
       </div>
     </div>
-    <div class="col-sm-6 mt-3">
-      <div class="card_Gray text-center">
+    <div class="col-sm-6 mt-6">
+      <div class="card text-center">
 
-                <div class="card-header-gray text-dark">
+                <div class="card-header-gray text-dark mt-4">
                     <b>Queue Numbers</b>
                 </div>
 

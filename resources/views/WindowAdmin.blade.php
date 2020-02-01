@@ -28,7 +28,7 @@
       <div class="container-fluid">
         <!-- Brand -->
           <a href="/">
-            <img src="{{ asset('assets/img/brand/PSI_Resized_White.png') }}">
+            <img src="{{ asset('assets/img/brand/xsLogo.png') }}">
           </a>
 
           <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -46,7 +46,7 @@
                       <img alt="Image placeholder" src="{{ asset('assets/img/theme/window_admin.png') }}">
                     </span>
                     <div class="media-body ml-2 d-none d-lg-block">
-                      <span class="mb-0 text-sm  font-weight-bold">Window Administrator</span>
+                      <span class="mb-0 text-sm text-dark font-weight-bold">Window Administrator</span>
                     </div>
                   </div>
                 </a>
@@ -73,7 +73,7 @@
     <!-- Navbar End -->
 
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-6">
+    <div class="header bg-gradient-yellow py-6 py-lg-4">
       <div class="container">
         <div class="header-body text-center mb-8">
         </div>

@@ -7,7 +7,7 @@
 
 @section('link')
 
-<small class="text-white">Station {{$WindowStationNumber}} - {{$StationName}} </small>
+<small class="text-dark">Station {{$WindowStationNumber}} - {{$StationName}} </small>
 @endsection
 
 @section('main_content')
@@ -16,7 +16,7 @@
   <div class="modal-dialog modal-secondary modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="customNumberModalLabel">Get a Queue Num ber.</h4>
+        <h4 class="modal-title" id="customNumberModalLabel">Get a Custom Queue Number.</h4>
         <button type="button" class="close " data-dismiss="modal" aria-label="Close">
           <i class="far fa-times-circle"></i>
         </button>
@@ -99,7 +99,7 @@
         </div>
 
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer mt--7">
                   {{Form::bsSubmit('Proceed',['class' => 'btn btn-primary'])}}
               </div>
             </div>
@@ -191,10 +191,10 @@
 
       <div class="row justify-content-center">
         <div class="container">
-          <div class="row">
-            <div class="col-sm-4 mt-3">
-              <div class="card_Gray text-center">
-                <div class="card-header-gray text-dark">
+          <div class="row mt-6 mb--5">
+            <div class="col-sm-4">
+              <div class="card text-center">
+                <div class="card-header-gray mt-4 text-dark">
                   Get a Queue number.
                 </div>
                 <div class="card-body">
@@ -260,9 +260,9 @@
                 </div>
               {!! Form::close() !!}
 
-                <div class="col-sm-4 mt-3">
-                  <div class="card_Gray text-center">
-                    <div class="card-header-gray text-dark">
+                <div class="col-sm-4 ">
+                  <div class="card text-center">
+                    <div class="card-header-gray mt-4 text-dark">
                   Queue Details
                 </div>
                     <div class="card-body">
@@ -326,9 +326,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-4 mt-3">
-                    <div class="card_Gray text-center">
-                      <div class="card-header-gray text-dark">
+                  <div class="col-sm-4 ">
+                    <div class="card text-center">
+                      <div class="card-header-gray mt-4 text-dark">
                   Recent Numbers
                 </div>
                       <div class="card-body">

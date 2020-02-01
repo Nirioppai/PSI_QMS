@@ -5,8 +5,8 @@
 @endsection
 
 @section('main_content')
-<div class="container d-flex justify-content-center">
-        <div class="row">
+<div class="container d-flex justify-content-center mb--5">
+        <div class="row mt--5">
           <div class="col-sm">
               <a href="/superadmin/queues/view">
                 <figure class="card4">
