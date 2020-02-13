@@ -50,6 +50,7 @@ class WindowAdminController extends Controller
             ->Where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number)
             ->Where('queue_station_number', '=', 2)
             ->Where('queue_action', '=', 0)
+            ->unique('queue_number')
             ->count();
         $recentCreated = $queueDetails
             ->Where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number)
@@ -65,7 +66,7 @@ class WindowAdminController extends Controller
             ->unique();
         $windowNumber =  Auth::guard('window_admin')->user()->window_number;
 
-        // Priority Counters 
+        // Priority Counters
         $counters  = PoolView::all()
             ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
             ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number);
@@ -80,19 +81,19 @@ class WindowAdminController extends Controller
             ->where('queue_action', '=', '1')
             ->pluck('queue_priority')
             ->first();
-        $priorityCheck = Auth::guard('window_admin')->user()->is_priority_window;    
-        
+        $priorityCheck = Auth::guard('window_admin')->user()->is_priority_window;
+
         // OnView Data Stations
         if($priorityCheck == 'Yes' || $NonPriorityCount == 0 )
-        {   
+        {
             if($OnWindowCheck == 0)
             {
                 $onWindow = T1Pools::all()
                     ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                     ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
                     ->where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number);
-                if($PriorityCount == 0) 
-                {     
+                if($PriorityCount == 0)
+                {
                     $onPool = T03Pool::all()
                         ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                         ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
@@ -121,7 +122,7 @@ class WindowAdminController extends Controller
                         ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
                         ->take(5);
                 }
-                
+
             }
             else
             {
@@ -129,8 +130,9 @@ class WindowAdminController extends Controller
                     ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                     ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
                     ->where('queue_window_number', '=', Auth::guard('window_admin')->user()->window_number);
-                if($NonPriorityCount == 0) 
-                {     
+
+                if($PriorityCount > 1)
+                {
                     $onPool = T03Priority::all()
                         ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                         ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
@@ -143,9 +145,12 @@ class WindowAdminController extends Controller
                         ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                         ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
                         ->take(5);
+
                 }
                 else
                 {
+
+
                     $onPool = T03Pool::all()
                         ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                         ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
@@ -158,6 +163,7 @@ class WindowAdminController extends Controller
                         ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                         ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
                         ->take(5);
+
                 }
             }
 
@@ -181,6 +187,7 @@ class WindowAdminController extends Controller
                         ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
                         ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
                         ->take(5);
+
         }
 
         $onWindowCount = $onWindow
