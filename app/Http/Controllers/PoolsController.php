@@ -832,7 +832,7 @@ class PoolsController extends Controller
             ->pluck('queue_priority')
             ->last();
         $pool->queue_action = 2;
-        $pool->user_id = Auth::gupnp_service_action_return(action)d('window_admin')->user()->id;
+        $pool->user_id = Auth::guard('window_admin')->user()->id;
         $pool->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
         $pool->queue_window_number = Auth::guard('window_admin')->user()->window_number;
         if(!$note)
