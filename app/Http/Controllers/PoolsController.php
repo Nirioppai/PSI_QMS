@@ -154,19 +154,6 @@ class PoolsController extends Controller
             'note' => ['max: 50']
         ]);
 
-        $checkNumberDuplicate = T1Pools::all()
-            ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
-            ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
-            ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number);
-        $exists = DB::table('Pool_Views')
-            ->where('queue_number', $checkNumberDuplicate)
-            ->exists(); 
-
-        if($exists == 1)
-        {
-            $exists->delete();
-        }
-
         if (is_null($request->input('note')))
         {
             switch ($request->input('action'))
@@ -310,7 +297,7 @@ class PoolsController extends Controller
                 $archive->created_at = $getFrom
                     ->pluck('created_at')
                     ->first();
-                $archive->queue_action = 1;
+                $archive->queue_action = 0;
                 $archive->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
                 $archive->queue_window_number = Auth::guard('window_admin')->user()->window_number;
                 $archive->save();
@@ -369,8 +356,6 @@ class PoolsController extends Controller
                 ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number);
         }
 
-        $poolId = $getFrom
-                ->last();
         $max = QueueRecords::all()
                 ->where('record_name', '=', Auth::guard('window_admin')->user()->queue_name)
                 ->where('record_type', '=', 'Queue')
@@ -402,7 +387,6 @@ class PoolsController extends Controller
             ->last();
         $pool->queue_note = $note;
         $pool->save();
-        $poolId->delete();
     }
 
     public function record($note)
@@ -473,6 +457,10 @@ class PoolsController extends Controller
             ->pluck('created_at')
             ->last();
         $archive->save();
+
+        $poolId = $getFrom
+            ->last();
+        $poolId->delete();
     }
 
     public function move($note)
@@ -487,9 +475,9 @@ class PoolsController extends Controller
             ->where('queue_priority', '=', '0')
             ->count();
         
-        $this->record($note);
         $this->next($note);
-
+        $this->record($note);
+        
         if ($PriorityCount != 0 || $NonPriorityCount != 0)
         {
             return $this->getNumber();
@@ -502,8 +490,8 @@ class PoolsController extends Controller
 
     public function breakMove($note)
     {
-        $this->record($note);
         $this->next($note);
+        $this->record($note);
         return redirect('/windowadmin/home');
     }
 
@@ -620,8 +608,6 @@ class PoolsController extends Controller
                 ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
                 ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number);
         }
-        $poolId = $getFrom
-            ->last();
 
         $pool = new Pools;
         $pool->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
@@ -639,7 +625,6 @@ class PoolsController extends Controller
             ->last();
         $pool->queue_note = $note;
         $pool->save();
-        $poolId->delete();
     }
 
     public function return($note)
@@ -653,11 +638,12 @@ class PoolsController extends Controller
         $NonPriorityCount = $counters
             ->where('queue_priority', '=', '0')
             ->count();
-
-        $this->record($note);
-        $this->newRecord($note);
-        $this->update($note);
         
+        
+        $this->update($note);
+        $this->newRecord($note);
+        $this->record($note);
+
         if($PriorityCount != 0 || $NonPriorityCount != 0)
         {
             $this->getNumber();
@@ -668,9 +654,10 @@ class PoolsController extends Controller
 
     public function breakSkip($note)
     {
-        $this->record($note);
-        $this->newRecord($note);
         $this->update($note);
+        $this->newRecord($note);
+        $this->record($note);
+
         return redirect('/windowadmin/home');
     }
 
@@ -725,8 +712,6 @@ class PoolsController extends Controller
                 ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
                 ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number);
         }
-        $poolId = $getFrom
-            ->last();
 
         $pool = new Pools;
         $pool->queue_name = $getFrom
@@ -751,7 +736,11 @@ class PoolsController extends Controller
             $pool->queue_note = $request->input('note');
         }
         $pool->save();
+
+        $poolId = $getFrom
+            ->last();
         $poolId->delete();
+
         return redirect('/windowadmin/home');
     }
 
@@ -798,8 +787,6 @@ class PoolsController extends Controller
                 ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
                 ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number);
         }
-        $poolId = $getFrom
-            ->last();
 
         $this->record($note);
 
@@ -820,9 +807,15 @@ class PoolsController extends Controller
         $archives->queue_priority = $getFrom
             ->pluck('queue_priority')
             ->last();
-        $archives->queue_action = 3;
+        $archives->queue_action = 1;
         $archives->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
         $archives->queue_window_number = Auth::guard('window_admin')->user()->window_number;
+        if(!$note)
+        {
+            $archives->queue_note = '';
+        } else {
+            $archives->queue_note = $note;
+        }
         $archives->save();
 
         $pool = new Pools;
@@ -839,11 +832,21 @@ class PoolsController extends Controller
             ->pluck('queue_priority')
             ->last();
         $pool->queue_action = 2;
-        $pool->user_id = Auth::guard('window_admin')->user()->id;
+        $pool->user_id = Auth::gupnp_service_action_return(action)d('window_admin')->user()->id;
         $pool->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
         $pool->queue_window_number = Auth::guard('window_admin')->user()->window_number;
+        if(!$note)
+        {
+            $pool->queue_note = '';
+        } else {
+            $pool->queue_note = $note;
+        }
         $pool->save();
+
+        $poolId = $getFrom
+             ->last();
         $poolId->delete();
+
         return redirect('/windowadmin/home');
     }
 
@@ -894,7 +897,7 @@ class PoolsController extends Controller
             $pool->queue_action = 1;
             $pool->save();
 
-            $archive = new Pools;
+            $archive = new Archives;
             $archive->queue_name = $getFrom
                 ->pluck('queue_name')
                 ->first();
