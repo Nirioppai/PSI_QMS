@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Flashboard;
+use App\PoolView;
+use Auth;
 
 class FlashboardController extends Controller
 {
@@ -22,8 +25,15 @@ class FlashboardController extends Controller
     * @return \Illuminate\Contracts\Support\Renderable
     */
     public function index()
-    {
-      return view('Flashboard');
+    {  
+      $station_number = Auth::guard('flashboard')->user()->record_station_number;
+
+      $windows = PoolView::all()
+        ->where('queue_station_number', '=', $station_number)
+        ->sortBy('queue_window_number');
+
+      return view('Flashboard')
+        ->with('windows',$windows);
     }
 
 }
