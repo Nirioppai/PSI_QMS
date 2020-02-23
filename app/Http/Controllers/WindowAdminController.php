@@ -65,6 +65,7 @@ class WindowAdminController extends Controller
             ->pluck('record_number')
             ->unique();
         $windowNumber =  Auth::guard('window_admin')->user()->window_number;
+        $loggedIn = Auth::guard('window_admin')->user()->username;
 
         // Priority Counters
         $counters  = PoolView::all()
@@ -243,6 +244,7 @@ class WindowAdminController extends Controller
                 ->with('queueStations', $queueStations)
                 ->with('WindowStationNumber', $WindowStationNumber)
                 ->with('StationName', $StationName)
+                ->with('loggedIn',  $loggedIn)
                 ->with('onDetails', $onDetails);
 
         }
