@@ -104,13 +104,14 @@ class QueuesRecordController extends Controller
     		$QueueRecord->queue_name =  $QueueName;
     		$QueueRecord->record_type =  'Window';
     		$QueueRecord->record_name =  $QueueName;
-        $QueueRecord->record_station_number =  $Queue_Designer2_Entry->station_number;
+            $QueueRecord->record_station_number =  $Queue_Designer2_Entry->station_number;
     		$QueueRecord->record_number = $Queue_Designer2_Entry->window_number;
     		$QueueRecord->record_number_of_stations = 0;
     		$QueueRecord->record_number_of_windows =  0;
-        $QueueRecord->record_admin =  $Queue_Designer2_Entry->username;
-        $QueueRecord->queue_status =  1;
-        $QueueRecord->record_creator =  $SuperAdmin_Logged_in;
+            $QueueRecord->record_is_priority_window = $Queue_Designer2_Entry->is_priority;
+            $QueueRecord->record_admin =  $Queue_Designer2_Entry->username;
+            $QueueRecord->queue_status =  1;
+            $QueueRecord->record_creator =  $SuperAdmin_Logged_in;
 
         $QueueRecord->save();
     	}
