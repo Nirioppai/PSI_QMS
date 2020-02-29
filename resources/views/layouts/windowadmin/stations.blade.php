@@ -381,7 +381,7 @@
 <!-- Live search script -->
 <script type = "text/javascript">
   var auto_refresh = setInterval(function(){
-  $('#pool').load('<?php echo url('/windowadmin/data'); ?>');
+  $('#pool').load('<?php echo url('/windowadmin/home/data'); ?>');
 }, 1000);
   </script>
 @endsection

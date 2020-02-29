@@ -84,7 +84,7 @@
 <!-- Live search script -->
 <script type = "text/javascript">
   var auto_refresh = setInterval(function(){
-  $('#data').load('<?php echo url('/flashboard/data'); ?>');
+  $('#data').load('<?php echo url('/flashboard/home/data'); ?>');
 }, 1000);
   </script>
 @endsection
