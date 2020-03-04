@@ -2,7 +2,7 @@ function edit_station(ele) {
 	
 	var queueName = ele.getAttribute('value');
 
-	document.getElementById("reset-QueueLabelLabel").innerHTML = "Add Station to " + queueName;
+	document.getElementById("queue_name").innerHTML = queueName;
 	document.getElementById("aS_QNe").value = queueName;
 }
 
