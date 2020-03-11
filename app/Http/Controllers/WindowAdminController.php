@@ -256,6 +256,7 @@ class WindowAdminController extends Controller
         }
     }
 
+
     public function livesearh_data()
     {
 
@@ -333,5 +334,7 @@ class WindowAdminController extends Controller
         return view('layouts.windowadmin.load-pool')
             ->with('onPool', $onPool);
     }
+
+
 
 }

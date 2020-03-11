@@ -74,11 +74,11 @@ Route::get('/',function(){
 
     //Window Admin Routes Here
     Route::get('/windowadmin/home', 'WindowAdminController@index')->name('windowadminhome');
-    Route::get('/windowadmin/data', 'WindowAdminController@livesearh_data')->name('windowadmindata');
+    Route::view('/windowadmin/home/data', 'layouts.windowadmin.load-pool')->name('windowadmindata');
 
     //Flashboard Routes Here
     Route::get('/flashboard/home', 'FlashboardController@index')->name('flashboardhome');
-    Route::get('/flashboard/data', 'FlashboardController@data')->name('flashboarddata');
+    Route::view('/flashboard/home/data', 'Flashboard-data')->name('flashboarddata');
 
     //Kiosk Routes Here
     Route::get('/kiosk/home', 'KioskController@index')->name('kioskhome');
