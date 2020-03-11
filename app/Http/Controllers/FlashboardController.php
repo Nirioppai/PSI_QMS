@@ -29,16 +29,4 @@ class FlashboardController extends Controller
       return view('Flashboard');
     }
 
-    public function data()
-    {
-      $station_number = Auth::guard('flashboard')->user()->record_station_number;
-
-      $windows = PoolView::all()
-        ->where('queue_station_number', '=', $station_number)
-        ->sortBy('queue_window_number');
-
-        return view('Flashboard-data')
-          ->with('windows',$windows);
-    }
-
 }

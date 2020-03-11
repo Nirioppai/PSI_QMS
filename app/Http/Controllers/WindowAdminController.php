@@ -254,14 +254,4 @@ class WindowAdminController extends Controller
         }
     }
 
-    public function livesearh_data()
-    {
-      $onPool = T03Pool::all()
-          ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
-          ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number)
-          ->take(4);
-        return view('layouts.windowadmin.load-pool')
-            ->with('onPool', $onPool);
-    }
-
 }
