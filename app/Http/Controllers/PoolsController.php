@@ -73,7 +73,7 @@ class PoolsController extends Controller
         $archive->user_id = $user_id;
         $archive->queue_name =  $getName;
         $archive->client_name =  $request->input('name');
-        $archive->queue_station_number = 2;
+        $archive->queue_station_number = 1;
         $archive->queue_window_number = $window;
         $archive->queue_action = 0;
         $archive->queue_priority = $request->input('priority');
