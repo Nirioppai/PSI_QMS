@@ -788,7 +788,7 @@ class PoolsController extends Controller
                 ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number);
         }
 
-        $this->record($note);
+        //$this->record($note);
 
         $archives = new Archives;
         $archives->user_id = Auth::guard('window_admin')->user()->id;
