@@ -227,6 +227,7 @@ class WindowAdminController extends Controller
                 ->with('stationNumber', $stationNumber)
                 ->with('windowNumber', $windowNumber)
                 ->with('WindowStationNumber', $WindowStationNumber)
+                ->with('loggedIn',  $loggedIn)
                 ->with('StationName', $StationName);
 
         }
