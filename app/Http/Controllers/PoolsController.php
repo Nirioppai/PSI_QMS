@@ -299,7 +299,7 @@ class PoolsController extends Controller
                     ->first();
                 $archive->queue_action = 0;
                 $archive->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
-                $archive->queue_window_number = Auth::guard('window_admin')->user()->window_number;
+                $archive->queue_window_number = 0;
                 $archive->save();
                 $numberGot->delete();
             } else {
