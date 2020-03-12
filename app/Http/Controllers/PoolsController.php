@@ -853,16 +853,34 @@ class PoolsController extends Controller
     public function getOnHold($id)
     {   
         $priorityCheck = Auth::guard('window_admin')->user()->is_priority_window;
+        $T2PriorityCount = T2Priority::all()
+            ->count();
+
         if($priorityCheck == 'Yes')
         {
-            $poolId = T2Priority::find($id);
-            $getFrom = T2Priority::all()
-                ->where('id', '=', $id);
-            $checkWindow = T1Priority::all()
-                ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
-                ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
-                ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number)
-                ->count();
+            if ($T2PriorityCount != 0) {
+                
+                $poolId = T2Priority::find($id);
+                $getFrom = T2Priority::all()
+                    ->where('id', '=', $id);
+                $checkWindow = T1Priority::all()
+                    ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                    ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
+                    ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number)
+                    ->count();
+            }
+            else
+            {
+                $poolId = T2Pools::find($id);
+                $getFrom = T2Pools::all()
+                    ->where('id', '=', $id);
+                $checkWindow = T1Pools::all()
+                    ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+                    ->where('queue_station_number', '=',  Auth::guard('window_admin')->user()->window_station_number)
+                    ->where('queue_window_number', '=',  Auth::guard('window_admin')->user()->window_number)
+                    ->count();
+            }
+            
         }
         else
         {
