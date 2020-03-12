@@ -916,7 +916,7 @@ class PoolsController extends Controller
             $archive->user_id = Auth::guard('window_admin')->user()->id;
             $archive->queue_window_number = Auth::guard('window_admin')->user()->window_number;
             $archive->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
-            $archive->queue_action = 1;
+            $archive->queue_action = 3;
             $archive->save();
             $poolId->delete();
         } else {
