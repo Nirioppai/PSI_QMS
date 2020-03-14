@@ -644,7 +644,7 @@ class PoolsController extends Controller
         
         $this->update($note);
         $this->newRecord($note);
-        $this->record($note);
+        //$this->record($note);
 
         if($PriorityCount != 0 || $NonPriorityCount != 0)
         {
