@@ -631,6 +631,7 @@ class PoolsController extends Controller
     {
         $counters  = PoolView::all()
             ->where('queue_name', '=', Auth::guard('window_admin')->user()->queue_name)
+            ->where('queue_action', '=', '0')
             ->where('queue_station_number', '=', Auth::guard('window_admin')->user()->window_station_number);
         $PriorityCount = $counters
             ->where('queue_priority', '=', '1')
