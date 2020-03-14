@@ -611,6 +611,7 @@ class PoolsController extends Controller
 
         $pool = new Pools;
         $pool->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
+        $pool->queue_window_number = 0;
         $pool->queue_action = 3;
         $pool->user_id = Auth::guard('window_admin')->user()->id;
         $pool->queue_name = Auth::guard('window_admin')->user()->queue_name;
