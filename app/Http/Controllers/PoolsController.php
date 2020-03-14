@@ -834,7 +834,7 @@ class PoolsController extends Controller
         $pool->queue_action = 2;
         $pool->user_id = Auth::guard('window_admin')->user()->id;
         $pool->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
-        $pool->queue_window_number = Auth::guard('window_admin')->user()->window_number;
+        $pool->queue_window_number = 0;
         if(!$note)
         {
             $pool->queue_note = '';
@@ -932,7 +932,7 @@ class PoolsController extends Controller
                 ->pluck('created_at')
                 ->first();
             $archive->user_id = Auth::guard('window_admin')->user()->id;
-            $archive->queue_window_number = Auth::guard('window_admin')->user()->window_number;
+            $archive->queue_window_number = 0;
             $archive->queue_station_number = Auth::guard('window_admin')->user()->window_station_number;
             $archive->queue_action = 3;
             $archive->save();
