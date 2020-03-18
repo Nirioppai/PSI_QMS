@@ -17,46 +17,47 @@
     </thead>
     <tbody>
       @foreach($onPool as $pool)
-      <tr>
-      <td class="text-left">{{ $pool->queue_number }}</td>
-      <td class="text-left">{{ $pool->client_name }}</td>
-      @if($pool->queue_action == 0)
+        <tr>
+          <td class="text-left">{{ $pool->queue_number }}</td>
+          <td class="text-left">{{ $pool->client_name }}</td>
+          @if($pool->queue_action == 0)
             <td class="text-left text-waiting"><b>Waiting</b></td>
-        @else
+          @else
             <td class="text-left text-danger"><b>Waiting</b></td>
-        @endif
+          @endif
+
           @if($pool->queue_priority == 1)
-                <td class="text-left">
-            <span class="badge badge-dot">
-              <i class="bg-success"></i>
-            </span>
-                    <i class="fas fa-check-circle"></i>
-                </td>
-            @else
-                <td class="text-left">
-            <span class="badge badge-dot">
-              <i class="bg-danger"></i>
-            </span>
-                    <i class="fas fa-times-circle"></i>
-                </td>
-            @endif
-        @if($pool->queue_note)
             <td class="text-left">
-                <span class="badge badge-dot">
-                  <i class="bg-success"></i>
-                </span>
-                <i class="fas fa-check-circle"></i>
+              <span class="badge badge-dot">
+                <i class="bg-success"></i>
+              </span>
+              <i class="fas fa-check-circle"></i>
             </td>
-        @else
+          @else
             <td class="text-left">
+              <span class="badge badge-dot">
+                <i class="bg-danger"></i>
+              </span>
+              <i class="fas fa-times-circle"></i>
+            </td>
+          @endif
+
+          @if($pool->queue_note)
+            <td class="text-left">
+              <span class="badge badge-dot">
+                <i class="bg-success"></i>
+              </span>
+              <i class="fas fa-check-circle"></i>
+            </td>
+            @else
+              <td class="text-left">
                 <span class="badge badge-dot">
                   <i class="bg-danger"></i>
                 </span>
                 <i class="fas fa-times-circle"></i>
-            </td>
-        @endif
-
-      </tr>
+              </td>
+          @endif
+        </tr>
       @endforeach
     </tbody>
   </table>
