@@ -9,15 +9,16 @@ use App\QueueRecords;
 use App\Flashboards;
 use App\Windowadmins;
 use App\HistoryLog;
-use App\ArchiveView;
-use App\QueueLogs;
+use App\Archives;
+use App\Pools;
+use App\QueueLog;
 use Auth;
 
 
 class QueueController extends Controller
 {
     public function renameQueue(Request $request, $id)
-    {
+    {	
 
     	$this->validate($request, ['newQueueName' => 'required']);
     	$queueName = QueueRecords::all()
@@ -35,8 +36,8 @@ class QueueController extends Controller
     	// $history = new HistoryLog;
 
 
-    	// Queue Records
-
+    	// Queue Records 
+    
     	$queueRecords = QueueRecords::all()
     				->where('queue_name', '=', $queueName);
     	$windowRecords = $queueRecords
@@ -47,13 +48,13 @@ class QueueController extends Controller
     		$queueRecord->queue_name = $newQueueName;
 			$queueRecord->save();
     	}
-
+			
 		foreach($windowRecords as $windowRecord)
 		{
 			$windowRecord->record_name = $newQueueName;
 			$windowRecord->save();
 		}
-
+	
 
 		// Window Admins
 
@@ -62,13 +63,13 @@ class QueueController extends Controller
 
 		foreach($queueWindows as $queueWindow)
 		{
-
+			
 			$queueWindow->queue_name = $newQueueName;
 			$queueWindow->username = $newQueueName.'S'.$queueWindow->window_station_number.'W'.$queueWindow->window_number;
 			$queueWindow->password = Hash::make($newQueueName.'S'.$queueWindow->window_station_number.'W'.$queueWindow->window_number.'pw');
 			$queueWindow->save();
 		}
-
+		
 
 		return redirect('/superadmin/queues/view');
 
@@ -96,9 +97,6 @@ class QueueController extends Controller
     	$windowRecords = Windowadmins::where('queue_name', '=', $queueName);
     	$windowRecords->delete();
 
-      $flashboardRecords = Flashboards::where('queue_name', '=', $queueName);
-    	$flashboardRecords->delete();
-
 
 		return redirect('/superadmin/queues/view');
 
@@ -112,44 +110,53 @@ class QueueController extends Controller
     				->pluck('queue_name')
     				->first();
 
-    	$archives = ArchiveView::all()
+        $pools = Pools::all()
+                    ->where('queue_name', '=', $queueName);
+
+    	$archives = Archives::all()
     				->where('queue_name', '=', $queueName);
 
-    	$archives->user_id = ArchiveView::Select('user_id')
+    	$archives->user_id = Archives::Select('user_id')
     						->where('queue_name', '=', $queueName)
     						->get();
-        $archives->queue_name = ArchiveView::Select('queue_name')
+        $archives->queue_name = Archives::Select('queue_name')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->queue_number = ArchiveView::Select('queue_number')
+        $archives->queue_number = Archives::Select('queue_number')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->client_name = ArchiveView::Select('client_name')
+        $archives->client_name = Archives::Select('client_name')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->queue_station_number = ArchiveView::Select('queue_station_number')
+        $archives->queue_station_number = Archives::Select('queue_station_number')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->queue_window_number = ArchiveView::Select('queue_window_number')
+        $archives->queue_window_number = Archives::Select('queue_window_number')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->queue_action = ArchiveView::Select('queue_action')
+        $archives->queue_action = Archives::Select('queue_action')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->queue_priority = ArchiveView::Select('queue_priority')
+        $archives->queue_priority = Archives::Select('queue_priority')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->queue_note  = ArchiveView::Select('queue_note')
+        $archives->queue_note  = Archives::Select('queue_note')
         					->where('queue_name', '=', $queueName)
         					->get();
-        $archives->created_at = ArchiveView::Select('created_at')
+        $archives->created_at = Archives::Select('created_at')
         					->where('queue_name', '=', $queueName)
         					->get();
 
 
-        foreach ($archives as $archive)
+        foreach ($pools as $pool) 
         {
-            $log = new QueueLogs;
+            $pool->delete();
+        }
+
+
+        foreach ($archives as $archive) 
+        {
+            $log = new QueueLog;
             $log->user_id = $archive->user_id;
             $log->queue_name = $archive->queue_name;
             $log->queue_number = $archive->queue_number;
@@ -157,15 +164,12 @@ class QueueController extends Controller
             $log->queue_station_number = $archive->queue_station_number;
             $log->queue_window_number = $archive->queue_window_number;
             $log->queue_action = $archive->queue_action;
-            $log->queue_priority = $archive->priority;
+            $log->queue_priority = $archive->queue_priority;
             $log->queue_note =$archive->queue_note;
             $log->created_at = $archive->created_at;
             $log->save();
-
-            if($archive)
-            {
-            	$archive->delete();
-          	}
+            
+            $archive->delete();
 
     	}
 
@@ -188,7 +192,7 @@ class QueueController extends Controller
 
     	$queueRecords = QueueRecords::all()
     			 ->where('queue_name', '=', $queueName);
-
+    	
     	foreach($queueRecords as $queueRecord)
     	{
     		$queueRecord->queue_status = 0;
@@ -225,7 +229,7 @@ class QueueController extends Controller
 
     	$queueRecords = QueueRecords::all()
     			 ->where('queue_name', '=', $queueName);
-
+    	
     	foreach($queueRecords as $queueRecord)
     	{
     		$queueRecord->queue_status = 1;
