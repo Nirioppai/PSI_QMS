@@ -17,6 +17,8 @@
   <link href="{{ asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <!-- Argon CSS -->
   <link type="text/css" href="{{ asset('assets/css/argon.css?v=1.0.0') }}" rel="stylesheet">
+  <!-- jquery -->
+  <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body class="bg-default">
@@ -28,7 +30,7 @@
       <div class="container-fluid">
         <!-- Brand -->
           <a href="/">
-            <img src="{{ asset('assets/img/brand/PSI_Resized_White.png') }}">
+            <img src="{{ asset('assets/img/brand/xsLogo.png') }}">
           </a>
 
           <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -46,13 +48,13 @@
                       <img alt="Image placeholder" src="{{ asset('assets/img/theme/window_admin.png') }}">
                     </span>
                     <div class="media-body ml-2 d-none d-lg-block">
-                      <span class="mb-0 text-sm  font-weight-bold">Window Administrator</span>
+                      <span class="mb-0 text-sm text-dark font-weight-bold">Window Administrator</span>
                     </div>
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                   <div class=" dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Welcome, EnrollmentS2W2!</h6>
+                    <h6 class="text-overflow m-0">Welcome, {{$loggedIn}}!</h6>
                   </div>
                   <a href="#" class="dropdown-item">
                     <i class="ni ni-single-02"></i>
@@ -73,7 +75,7 @@
     <!-- Navbar End -->
 
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-6">
+    <div class="header bg-gradient-yellow py-6 py-lg-4">
       <div class="container">
         <div class="header-body text-center mb-8">
         </div>

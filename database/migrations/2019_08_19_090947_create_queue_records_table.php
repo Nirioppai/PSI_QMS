@@ -22,7 +22,7 @@ class CreateQueueRecordsTable extends Migration
             $table->integer('record_number')->default(0);
             $table->integer('record_number_of_stations')->default(0);
             $table->integer('record_number_of_windows')->default(0);
-            $table->integer('record_is_priority_window')->default(1);
+            $table->string('record_is_priority_window')->default('Yes');
             $table->string('record_admin')->default('Not Set');
             $table->integer('queue_status')->default(0);
             $table->string('record_creator')->default('Not Set');

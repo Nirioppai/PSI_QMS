@@ -16,6 +16,7 @@
   <link type="text/css" href="{{ asset('/assets/css/animate.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ asset('/assets/css/flip.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ asset('/assets/css/argon.css?v=1.0.0') }}" rel="stylesheet">
+  <link type="text/css" href="{{ asset('/assets/css/card.css?v=1.0.0') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -28,7 +29,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="/superadmin/home">
-        <img src="{{ asset('/assets/img/brand/PSI_Resized_Black.png') }}" class="navbar-brand-img" alt="...">
+        <img src="{{ asset('/assets/img/brand/xsLogo.png') }}" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -71,7 +72,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="/superadmin/home">
-                <img src="{{ asset('/assets/img/brand/PSI_Resized_Black.png') }}">
+                <img src="{{ asset('/assets/img/brand/xsLogo.png') }}">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -144,7 +145,7 @@
         <div class="collapse navbar-collapse">
            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                 <a class="nav-link" href="/about"><small>About</small></a>
+                 <a class="nav-link text-dark" href="/about"><small>About</small></a>
               </li>
            </ul>
         </div>
@@ -157,7 +158,7 @@
                   <img alt="Image placeholder" src="{{ asset('assets/img/theme/super_admin.png') }}">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Super Admin</span>
+                  <span class="mb-0 text-sm text-dark font-weight-bold">Super Admin</span>
                 </div>
               </div>
             </a>
@@ -188,7 +189,7 @@
       </div>
     </nav>
     <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-yellow pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
@@ -232,7 +233,7 @@
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2019 <a href="#" class="font-weight-bold ml-1" target="_blank">Philippine Softwares Inc.</a>
+              &copy; 2019 <a href="https://www.facebook.com/Philippine-Softwares-Inc-101678331227061/" class="font-weight-bold ml-1" target="_blank">Philippine Softwares Inc.</a>
             </div>
           </div>
           <div class="col-xl-6">

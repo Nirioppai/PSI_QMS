@@ -67,19 +67,23 @@ Route::get('/',function(){
     Route::post('/queueadmin/queues/new/modify/save', 'QueuesRecord_QueueAdmin_Controller@recordQueueDesign')->name('queueadmin_recordQueueDesign');
 
     Route::get('/queueadmin/accounts', 'QueueAdminController@accounts')->name('queueadminaccounts');
+    Route::get('/queueadmin/accounts/{record_name}', 'QueueAdminController@pick_queue_from_table')->name('queueadminpick_queue_from_table');
+    Route::get('/queueadmin/accounts/{record_name}/{record_number}', 'QueueAdminController@pick_station_admin_from_table')->name('pick_station_admin_from_table');
     //Station Admin Routes Here
     Route::get('/stationadmin/home', 'StationAdminController@index')->name('stationadminhome');
 
     //Window Admin Routes Here
     Route::get('/windowadmin/home', 'WindowAdminController@index')->name('windowadminhome');
+    Route::view('/windowadmin/home/data', 'layouts.windowadmin.load-pool')->name('windowadmindata');
 
     //Flashboard Routes Here
     Route::get('/flashboard/home', 'FlashboardController@index')->name('flashboardhome');
+    Route::view('/flashboard/home/data', 'Flashboard-data')->name('flashboarddata');
 
     //Kiosk Routes Here
     Route::get('/kiosk/home', 'KioskController@index')->name('kioskhome');
 
-    //Pool Routes Here
+    //Pool Routes Here aka Window Controls
     Route::resource('pools', 'PoolsController');
     Route::post('/Queue/custom', 'PoolsController@custom');
     Route::post('/Queue/noteCheck', 'PoolsController@noteCheck');

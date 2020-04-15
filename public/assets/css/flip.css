@@ -45,7 +45,7 @@ figure:hover {
 }
 figure:hover:after {
   content: '⚡';
-  background-color: rgba(175, 25, 30, 0.9);
+  background-color: rgba(7, 59, 121, 0.9);
   color: white;
   font-size: 72px;
   z-index: 2;

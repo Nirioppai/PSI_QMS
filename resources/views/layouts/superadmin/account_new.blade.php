@@ -21,7 +21,7 @@
 	</div>
 	@endif
 
-	<div class="row justify-content-center align-items-center">
+	<div class="row justify-content-center align-items-center mt--6">
 
 		<div class="col-lg-7">
 	    	<div class="card bg-secondary shadow-lg border-0">

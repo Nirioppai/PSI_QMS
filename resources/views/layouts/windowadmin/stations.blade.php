@@ -5,7 +5,7 @@
 @endsection
 
 @section('link')
-<a class="nav-link">Station {{ $stationNumber }} - {{$StationName}} </a>
+<a class="nav-link text-dark">Station {{ $stationNumber }} - {{$StationName}} </a>
 @endsection
 
 @section('main_content')
@@ -75,6 +75,7 @@
           <div class="table-responsive">
             <div>
               <!-- Dito pagination dapat dito -->
+              @if($onDetails)
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
@@ -91,40 +92,45 @@
                       <i class='fas fa-check-circle'></i> ' indicates that a number <b>has a note</b>." data-html="true"><i class="fas fa-info-circle"></i> Note</th>
                     </tr>
                 </thead>
-
+                @foreach($onDetails as $detail)
                 <tr>
-                  <td class="text-left">1</td>
-                  <td class="text-left">Nico</td>
+                  <td class="text-left">{{ $detail->queue_number }}</td>
+                  <td class="text-left">{{ $detail->client_name }}</td>
+                  @if($detail->queue_action == 0)
                   <td class="text-left text-waiting"><b>Waiting</b></td>
+                    @else
+                  <td class="text-left text-danger"><b>Waiting</b></td>
+                  @endif
+                    @if($detail->queue_priority == 1)
                   <td class="text-left">
                       <span class="badge badge-dot">
                         <i class="bg-waiting"></i>
                       </span>
                       <i class="fas fa-check-circle"></i>
                   </td>
-                  <td class="text-left">
-                  <span class="badge badge-dot">
-                        <i class="bg-danger"></i>
-                  </span>None</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left">2</td>
-                  <td class="text-left">Loui</td>
-                  <td class="text-left text-danger"><b>Waiting</b></td>
+                      @else
                   <td class="text-left">
                       <span class="badge badge-dot">
                         <i class="bg-danger"></i>
                       </span>
                       <i class="fas fa-times-circle"></i>
                   </td>
+                    @endif
+                      @if(!$detail->queue_note)
+                  <td class="text-left">
+                  <span class="badge badge-dot">
+                        <i class="bg-danger"></i>
+                  </span>None</td>
+                        @else
                   <td class="text-left">
                   <span class="badge badge-dot">
                         <i class="bg-waiting"></i>
-                  </span>Nag CR lang daw</td>
-                </tr>
-
-              </table>
+                  </span>{{ $detail->queue_note }}</td>
+                      @endif
+                @endforeach
+                    </tr>
+                  </table>
+              @endif
             </div>
           </div>
           <div class="text-right">
@@ -136,9 +142,9 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 mt-3">
-      <div class="card_Gray text-center">
-        <div class="card-header-gray text-dark">
+    <div class="col-sm-6 mt-6">
+      <div class="card text-center">
+        <div class="card-header-gray text-dark mt-4">
          <b>Queue Handling</b>
         </div>
             <div class="card-body">
@@ -354,75 +360,15 @@
                 </div>
       </div>
     </div>
-    <div class="col-sm-6 mt-3">
-      <div class="card_Gray text-center">
+    <div class="col-sm-6 mt-6">
+      <div class="card text-center">
 
-                <div class="card-header-gray text-dark">
+                <div class="card-header-gray text-dark mt-4">
                     <b>Queue Numbers</b>
                 </div>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                    <table class="table align-items-center table-flush white-container">
-                      <thead class="thead-light ">
-                        <tr>
-                          <th class="text-left text-dark">Number</th>
-                          <th class="text-left text-dark">Name</th>
-                          <th class="text-left text-dark" data-toggle="tooltip" data-placement="right" title="'<b class= text-danger> Waiting </b>' indicates that a number has been <b>skipped</b>." data-html="true"><i class="fas fa-info-circle"></i> Status</th>
-                          <th class="text-left text-dark" data-toggle="tooltip" data-placement="left" title="' <span class='badge badge-dot'>
-                            <i class='bg-waiting'></i>
-                          </span>
-                          <i class='fas fa-check-circle'></i> ' indicates that a number is <b>prioritized</b>." data-html="true"><i class="fas fa-info-circle"></i> Priority</th>
-                          <th class="text-left text-dark" data-toggle="tooltip" data-placement="left" title="' <span class='badge badge-dot'>
-                            <i class='bg-waiting'></i>
-                          </span>
-                          <i class='fas fa-check-circle'></i> ' indicates that a number <b>has a note</b>." data-html="true"><i class="fas fa-info-circle"></i> Note</th>
-                        </tr>
-                      </thead>
-                        @foreach($onPool as $pool)
-                      <tr>
-                        <td class="text-left">{{ $pool->queue_number }}</td>
-                        <td class="text-left">{{ $pool->client_name }}</td>
-                        @if($pool->queue_action == 0)
-                              <td class="text-left text-waiting"><b>Waiting</b></td>
-                          @else
-                              <td class="text-left text-danger"><b>Waiting</b></td>
-                          @endif
-                            @if($pool->queue_priority == 1)
-                                  <td class="text-left">
-                              <span class="badge badge-dot">
-                                <i class="bg-success"></i>
-                              </span>
-                                      <i class="fas fa-check-circle"></i>
-                                  </td>
-                              @else
-                                  <td class="text-left">
-                              <span class="badge badge-dot">
-                                <i class="bg-danger"></i>
-                              </span>
-                                      <i class="fas fa-times-circle"></i>
-                                  </td>
-                              @endif
-                          @if($pool->queue_note)
-                              <td class="text-left">
-                                  <span class="badge badge-dot">
-                                    <i class="bg-success"></i>
-                                  </span>
-                                  <i class="fas fa-check-circle"></i>
-                              </td>
-                          @else
-                              <td class="text-left">
-                                  <span class="badge badge-dot">
-                                    <i class="bg-danger"></i>
-                                  </span>
-                                  <i class="fas fa-times-circle"></i>
-                              </td>
-                          @endif
+                <div class="card-body" id ="pool">
 
-                      </tr>
-                        @endforeach
-                    </table>
-                  </div>
                   <span data-toggle="modal" data-target="#TableModal">
                         <a class="btn btn-outline-primary" href="#" data-toggle="tooltip" data-html="true" data-placement="left" title="Displays a <b>more detailed</b> table of the Queue Numbers."  onclick="return false;">Further Details</a>
                     </span>
@@ -432,4 +378,10 @@
         </div>
     </div>
 </div>
+<!-- Live search script -->
+<script type = "text/javascript">
+  var auto_refresh = setInterval(function(){
+  $('#pool').load('<?php echo url('/windowadmin/home/data'); ?>');
+}, 1000);
+  </script>
 @endsection

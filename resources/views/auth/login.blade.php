@@ -5,16 +5,8 @@
 @endsection
 
 @section('main_content')
-<nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-      <div class="container px-4">
-        <a href="/">
-          <img src="../assets/img/brand/PSI_Resized_White.png">
-        </a>
-      </div>
-    </nav>
-    <!-- Navbar End -->
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-6">
+    <div class="header bg-gradient-yellow py-7 py-lg-6">
       <div class="container">
         <div class="header-body text-center mb-8">
         </div>
@@ -30,44 +22,46 @@
     <div class="container mt--9 pb-5">
       <!-- Table -->
       <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-8">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-body px-lg-5 py-sm-3 ">
-              <br>
-              <br>
-              <br>
-              <div class="text-center text-muted mb-4">
-                 <small>Sign in with your Admin Credentials.</small>
-              </div>
-              <form method="POST" action="{{ route('login') }}">
-                 @csrf
-                 <div class="form-group mb-3">
-                    <div class="input-group input-group-alternative">
-                       <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="fas fa-id-card-alt"></i></span>
-                       </div>
-                       <input id="username" type="text" placeholder="Admin ID" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
-                    </div>
-                 </div>
 
-                 <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                       <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                       </div>
-                       <input placeholder="{{ $errors->has('password') ? ' Invalid ' : '' }}Password{{ $errors->has('password') ? '. ' : '' }}" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-                    </div>
-                 </div>
+        <div class="col-lg-4 col-md-7 ">
+        
+           <form method="POST" class="bg-white text-center border border-light p-5" action="{{ route('login') }}">
+            @csrf
+            <img src="{{asset('../assets/img/brand/xsLogo.png')}}" class=" text-left mt--4" alt="...">
+            <p class="h2 mt-2 text-left">Enter credentials</p>
 
-                 <div class="text-center">
-                    <button type="submit" class="btn btn-outline-primary  my-4">
-                    {{ __('Sign in') }}
-                    </button>
-                 </div>
-                 
+            <div class="md-form mt--1">
+
+                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+
+                @if ($errors->has('username'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('username') }}</strong>
+                    </span>
+                @endif
+                <label for="materialLoginFormUsername"><i class="fas fa-id-card-alt"></i> <small>Username</small></label>
             </div>
-          </div>
+
+            <div class="md-form mt--1">
+                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                @if ($errors->has('password'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+                <label for="materialLoginFormPassword"><i class="ni ni-lock-circle-open"></i> <small>Password</small></label>
+            </div>
+
+            <div class="text-center">
+            <button type="submit" class="btn btn-md btn-outline-primary mb--3">
+                {{ __('Sign in') }}
+            </button>
+            </div>
+          </form>
         </div>
+
+
       </div>
     </div>
   </div>
