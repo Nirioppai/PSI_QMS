@@ -69,6 +69,133 @@
                    </div>
                   </td>
               </tr>
+
+              <!-- Activate Confirmation Modal -->
+          <div class="modal fade"id="activate-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                {!! Form::open(['url' => '/Queue/activate-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                  Are you sure you want to activate {{$queue_record->record_name}}?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
+                  {!! Form::close() !!}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal Ends Here -->
+
+          <!-- Deactivate Confirmation Modal -->
+          <div class="modal fade"id="deactivate-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                {!! Form::open(['url' => '/Queue/deactivate-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                  Are you sure you want to deactivate {{$queue_record->record_name}}?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
+                  {!! Form::close() !!}
+                </div>
+              </div>
+            </div>
+          </div>
+            <!-- Modal Ends Here -->
+
+            <!-- Rename Modal -->
+            <div class="modal fade" id="rename-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="reset-QueueLabelLabel">Rename Queue</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    {!! Form::open(['url' => '/Queue/rename-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-layer-group"></i>
+                        </span>
+                      </div>
+                      {{ Form::bsText('newQueueName', $queue_record->queue_name, ['placeholder' => 'New Queue name', 'class' => 'form-control'])}}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    {{Form::bsSubmit('Save Changes',['class' => 'btn btn-primary'])}}
+                    {!! Form::close() !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Ends Here -->
+
+            <!-- Delete Confirmation Modal -->
+            <div class="modal fade" id="delete-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    {!! Form::open(['url' => '/Queue/delete-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                    Are you sure you want to delete {{$queue_record->record_name}}?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
+                    {!! Form::close() !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Ends Here -->
+
+            <!-- Reset Confirmation Modal -->
+            <div class="modal fade" id="reset-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    {!! Form::open(['url' => '/Queue/reset-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
+                    Are you sure you want to reset {{$queue_record->record_name}}?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
+                    {!! Form::close() !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Ends Here -->
+
               @endforeach
            </table>
 
@@ -142,131 +269,7 @@
           </div>
           <!-- End Edit Station Modal -->
 
-          <!-- Activate Confirmation Modal -->
-          <div class="modal fade"id="activate-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                {!! Form::open(['url' => '/Queue/activate-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
-                  Are you sure you want to activate {{$queue_record->record_name}}?
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
-                  {!! Form::close() !!}
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Modal Ends Here -->
-
-          <!-- Deactivate Confirmation Modal -->
-          <div class="modal fade"id="deactivate-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                {!! Form::open(['url' => '/Queue/deactivate-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
-                  Are you sure you want to deactivate {{$queue_record->record_name}}?
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                  {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
-                  {!! Form::close() !!}
-                </div>
-              </div>
-            </div>
-          </div>
-            <!-- Modal Ends Here -->
-
-            <!-- Rename Modal -->
-            <div class="modal fade" id="rename-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title" id="reset-QueueLabelLabel">Rename Queue</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    {!! Form::open(['url' => '/Queue/rename-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="fas fa-layer-group"></i>
-                        </span>
-                      </div>
-                      {{ Form::bsText('newQueueName', '', ['placeholder' => 'New Queue name', 'class' => 'form-control'])}}
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    {{Form::bsSubmit('Save Changes',['class' => 'btn btn-primary'])}}
-                    {!! Form::close() !!}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Modal Ends Here -->
-
-            <!-- Delete Confirmation Modal -->
-            <div class="modal fade" id="delete-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    {!! Form::open(['url' => '/Queue/delete-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
-                    Are you sure you want to delete {{$queue_record->record_name}}?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
-                    {!! Form::close() !!}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Modal Ends Here -->
-
-            <!-- Reset Confirmation Modal -->
-            <div class="modal fade" id="reset-Queue-{{$queue_record->id}}" tabindex="-1" role="dialog" aria-labelledby="reset-QueueLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title" id="reset-QueueLabelLabel">Confirmation</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    {!! Form::open(['url' => '/Queue/reset-'.$queue_record->id, 'class' => 'form-horizontal', 'method' => 'POST']) !!}
-                    Are you sure you want to reset {{$queue_record->record_name}}?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    {{Form::bsSubmit('Yes',['class' => 'btn btn-primary'])}}
-                    {!! Form::close() !!}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Modal Ends Here -->
+          
         </div>
       </div>
     </div>
